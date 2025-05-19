@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import "../global.css";
 
 import { ExternalLink } from "./ExternalLink";
 import { MonoText } from "./StyledText";
@@ -18,7 +19,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
         >
           Open up the code for this screen:
         </Text>
-
+        <Text className="text-2xl text-center">EditScreenInfo.tsx</Text>
         <View
           style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
           darkColor="rgba(255,255,255,0.05)"
