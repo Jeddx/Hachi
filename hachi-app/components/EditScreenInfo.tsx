@@ -19,7 +19,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
         >
           I love bees!!!:
         </Text>
-        <Text className="text-2xl text-center">BEES</Text>
+        <Text className="text-2xl text-center">This is where the dictionary stuff goes</Text>
         <View
           style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
           darkColor="rgba(255,255,255,0.05)"
@@ -30,11 +30,10 @@ export default function EditScreenInfo({ path }: { path: string }) {
 
         <Text
           style={styles.getStartedText}
-          lightColor="rgba(255, 0, 0, 0.8)"
+          lightColor="rgba(0, 0, 0, 0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
-          Change any of the text (or not), save the file, and your app will
-          automatically update.
+          これは何ですか？
         </Text>
       </View>
 
