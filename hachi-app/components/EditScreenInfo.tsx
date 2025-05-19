@@ -17,9 +17,9 @@ export default function EditScreenInfo({ path }: { path: string }) {
           lightColor="rgba(0, 0, 0, 0.8)"
           darkColor="rgba(255, 255, 255, 0.8)"
         >
-          Open up the code for this screen:
+          I love bees!!!:
         </Text>
-        <Text className="text-2xl text-center">EditScreenInfo.tsx</Text>
+        <Text className="text-2xl text-center">BEES</Text>
         <View
           style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
           darkColor="rgba(255,255,255,0.05)"
@@ -30,11 +30,11 @@ export default function EditScreenInfo({ path }: { path: string }) {
 
         <Text
           style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
+          lightColor="rgba(255, 0, 0, 0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
-          Change any of the text, save the file, and your app will automatically
-          update.
+          Change any of the text (or not), save the file, and your app will
+          automatically update.
         </Text>
       </View>
 
