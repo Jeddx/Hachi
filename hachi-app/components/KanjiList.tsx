@@ -5,15 +5,19 @@ import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    title: '一',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    title: '二',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    title: '三',
+  },
+  {
+    id: 'BEESSSSSS',
+    title: '蜂',
   },
 ];
 
@@ -28,7 +32,7 @@ const Item = ({title}: ItemProps) => (
 const KanjiList = () => (
   <SafeAreaProvider>
     <SafeAreaView style={styles.container}>
-      <FlatList numColumns={2}
+      <FlatList numColumns={10}
         data={DATA}
         renderItem={({item}) => <Item title={item.title} />}
         keyExtractor={item => item.id}
@@ -43,13 +47,17 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    backgroundColor: '#808080',
+    padding: 10,
+    marginVertical: 1,
+    marginHorizontal: 1,
+    borderColor: '#000000',
+    borderRadius: 4,
+    borderWidth: 3,
   },
   title: {
-    fontSize: 32,
+    fontSize: 64,
+    
   },
 });
 

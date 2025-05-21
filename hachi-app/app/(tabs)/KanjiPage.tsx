@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import ImageBG from '@/components/imageBG';
 import KanjiList from '@/components/KanjiList';
+import Bananas from '@/components/Bananas';
 
 const DATA = [
   {
@@ -25,6 +26,7 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Kanji</Text>
       <KanjiList /> 
+      <Bananas />
     </View>
   );
 }
