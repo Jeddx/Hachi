@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, FlatList, StyleSheet, Text, StatusBar} from 'react-native';
+import {View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity} from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import KanjiBox from './KanjiBox';
 
 const DATA = [
   {
@@ -19,46 +20,106 @@ const DATA = [
     id: 'BEESSSSSS',
     title: '蜂',
   },
+    {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+    {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+    {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
+      {
+    id: 'BEESSSSSS',
+    title: '蜂',
+  },
 ];
 
-type ItemProps = {title: string};
+// type ItemProps = {title: string};
 
-const Item = ({title}: ItemProps) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+// const Item = ({title}: ItemProps) => (
+//   <View style={styles.item}>
+//     <Text style={styles.title}>{title}</Text>
+//   </View>
+// );
 
 const KanjiList = () => (
   <SafeAreaProvider>
     <SafeAreaView style={styles.container}>
       <FlatList numColumns={10}
+        showsVerticalScrollIndicator={false}
         data={DATA}
-        renderItem={({item}) => <Item title={item.title} />}
+        renderItem={({item}) => <KanjiBox kanji={item.title} />}
         keyExtractor={item => item.id}
       />
     </SafeAreaView>
   </SafeAreaProvider>
 );
-
+//StatusBar.currentHeight
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
-  item: {
-    backgroundColor: '#808080',
-    padding: 10,
-    marginVertical: 1,
-    marginHorizontal: 1,
-    borderColor: '#000000',
-    borderRadius: 4,
-    borderWidth: 3,
-  },
-  title: {
-    fontSize: 64,
+  // item: {
+  //   backgroundColor: '#808080',
+  //   padding: 10,
+  //   marginVertical: 1,
+  //   marginHorizontal: 1,
+  //   borderColor: '#000000',
+  //   borderRadius: 4,
+  //   borderWidth: 3,
+  // },
+  // title: {
+  //   fontSize: 64,
     
-  },
+  // },
 });
 
 export default KanjiList;
