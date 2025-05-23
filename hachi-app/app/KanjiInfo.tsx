@@ -2,11 +2,10 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import KanjiList from '@/components/KanjiList';
 
-export default function KanjiScreen() {
+export default function KanjiInfoScreen() {
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.title}>Kanji</Text>
-      <KanjiList /> 
     </View>
   );
 }

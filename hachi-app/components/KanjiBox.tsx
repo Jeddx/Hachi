@@ -4,20 +4,25 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 type KanjiBoxProps = {kanji: string};
 
-const KanjiBox = ({kanji}: KanjiBoxProps) => (
+const KanjiBox = ({kanji}: KanjiBoxProps) => {
+  const onPress = () => {
+    console.log('Pressed:', kanji);
+  };
 
-    <TouchableOpacity>
-          <View style={styles.item}>
-            <Text style={styles.kanji}>{kanji}</Text>
-        </View>
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.item}>
+        <Text style={styles.kanji}>{kanji}</Text>
+      </View>
     </TouchableOpacity>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: '#808080',
+    backgroundColor: '#FFD972',
     padding: 10,
-    borderColor: '#000000',
+    borderColor: '#040F0F',
     borderWidth: 1,
   },
   kanji: {
