@@ -2,11 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 
+
 type KanjiBoxProps = {kanji: string};
 
 const KanjiBox = ({kanji}: KanjiBoxProps) => {
   const onPress = () => {
-    console.log('Pressed:', kanji);
+    //navigation.navigate('Profile', {name: 'Jane'});
   };
 
   return (
@@ -20,13 +21,14 @@ const KanjiBox = ({kanji}: KanjiBoxProps) => {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: '#FFD972',
+    backgroundColor: '#212121',
     padding: 10,
-    borderColor: '#040F0F',
-    borderWidth: 1,
+    //borderColor: '#040F0F',
+    //borderWidth: 1,
   },
   kanji: {
     fontSize: 64,
+    color: '#d9d9d9' //FFD972 //d8dc6c //d9d9d9
   },
 });
 

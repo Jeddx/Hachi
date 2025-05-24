@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
-import KanjiList from '@/components/KanjiList';
 
 export default function KanjiInfoScreen() {
   return (
