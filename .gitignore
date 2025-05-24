@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Expo
+.expo/
+.expo-shared/
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+
+# iOS
+ios/Pods/
+ios/build/
+ios/DerivedData/
+
+# Xcode
+*.xcworkspace
+*.xcuserdata
+*.xcuserstate
+
+# Bundler
+.bundle/
+
+# Other
+.env
+*.keystore
