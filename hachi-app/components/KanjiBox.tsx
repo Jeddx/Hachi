@@ -1,20 +1,23 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-
+import { Link } from "expo-router";
 
 
 type KanjiBoxProps = {kanji: string};
 
 const KanjiBox = ({kanji}: KanjiBoxProps) => {
   const onPress = () => {
-    //navigation.navigate('Profile', {name: 'Jane'});
+    <Link href="/two" push asChild />
   };
 
   return (
     <TouchableOpacity onPress={onPress}>
+    <Link href="/KanjiInfo" push asChild>
       <View style={styles.item}>
         <Text style={styles.kanji}>{kanji}</Text>
+        
       </View>
+    </Link>
     </TouchableOpacity>
   );
 };
