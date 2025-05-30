@@ -1,36 +1,60 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { Link } from "expo-router";
 
-type KanjiBoxProps = { symbol: string; id: string };
+type KanjiBoxProps = { symbol: string; english: string; id: string };
 
-const KanjiBox = ({ symbol, id }: KanjiBoxProps) => {
-  //
+const KanjiBox = ({ symbol, english, id }: KanjiBoxProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <TouchableOpacity>
-      <Link
-        href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }}
-        push
-        asChild
-      >
-        <View style={styles.item}>
+    <Pressable
+      onHoverIn={() => setIsHovered(true)}
+      onHoverOut={() => setIsHovered(false)}
+      style={({ hovered }) => [styles.box, hovered && styles.hovered]}
+    >
+      <TouchableOpacity>
+        <Link
+          href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }}
+          push
+          asChild
+        >
           <Text style={styles.kanji}>{symbol}</Text>
-        </View>
-      </Link>
-    </TouchableOpacity>
+        </Link>
+        {isHovered && (
+          <View>
+            <Text style={styles.english}>{english}</Text>
+          </View>
+        )}
+      </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  item: {
+  box: {
     backgroundColor: "#212121",
     padding: 10,
     //borderColor: '#040F0F',
     //borderWidth: 1,
   },
+  hovered: {
+    backgroundColor: "#171717",
+  },
   kanji: {
     fontSize: 64,
     color: "#d9d9d9", //FFD972 //d8dc6c //d9d9d9
+  },
+  english: {
+    fontSize: 12,
+    color: "#d9d9d9",
+    textAlign: "center",
   },
 });
 

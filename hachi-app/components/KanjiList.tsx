@@ -19,7 +19,7 @@ const KanjiList = () => (
         showsVerticalScrollIndicator={false}
         data={KanjiDATA}
         renderItem={({ item }) => (
-          <KanjiBox symbol={item.symbol} id={item.id} />
+          <KanjiBox symbol={item.symbol} english={item.english} id={item.id} />
         )}
         keyExtractor={(item) => item.id}
       />

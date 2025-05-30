@@ -8,8 +8,6 @@ The Kanji boxes will be difference colors depending on user proficiency
 import { StyleSheet } from "react-native";
 import { Text, View } from "@/components/Themed";
 import KanjiList from "@/components/KanjiList";
-import { Link } from "expo-router";
-import { Button } from "react-native";
 
 export default function KanjiScreen() {
   return (
