@@ -6,7 +6,7 @@ import KanjiDATA from "./[id]";
 export default function KanjiScreen() {
   const params = useLocalSearchParams<{ id: string }>();
 
-  const kanji = KanjiDATA.find((k) => k.id === params.id);
+  const kanji = KanjiDATA.find((k) => k.id === params.id); //Since we are no longer using KanjiDATA need to read from db
 
   if (!kanji) {
     return (

@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import { Text, View } from "@/components/Themed";
-import SQLite from "react-native-sqlite-storage";
 
 // const db = SQLite.openDatabase(
 //   {

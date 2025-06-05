@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 
-type KanjiBoxProps = { symbol: string; english: string; id: string };
+type KanjiBoxProps = { symbol: string; english: string; id: number };
 
 const KanjiBox = ({ symbol, english, id }: KanjiBoxProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -21,7 +21,7 @@ const KanjiBox = ({ symbol, english, id }: KanjiBoxProps) => {
     >
       <TouchableOpacity>
         <Link
-          href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }}
+          href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }} //Maybe this needs to be changed to a string?
           push
           asChild
         >
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "#212121",
     padding: 10,
+    width: 100,
+    height: 120,
+    alignItems: "center",
+    justifyContent: "center",
     //borderColor: '#040F0F',
     //borderWidth: 1,
   },
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#171717",
   },
   kanji: {
-    fontSize: 64,
+    fontSize: 12, //64
     color: "#d9d9d9", //FFD972 //d8dc6c //d9d9d9
   },
   english: {
