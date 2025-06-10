@@ -2,6 +2,7 @@ import { Text } from "@/components/Themed";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import KanjiData from "@/components/KanjiData";
+import { StyleSheet } from "react-native";
 
 const KanjiDetails = () => {
   const params = useLocalSearchParams<{ kanji: string }>();
@@ -16,11 +17,36 @@ const KanjiDetails = () => {
     );
   }
   return (
-    <View>
-      <Text>{kanji.kanji}</Text>
-      <Text>{kanji.meanings}</Text>
+    <View style={styles.container}>
+      <Text style={styles.kanji}>{kanji.kanji}</Text>
+      <Text style={styles.english}>{kanji.meanings}</Text>
+      <Text style={styles.extraInfo}> JLPT Level {kanji.jlpt_level}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#2a2a2a",
+  },
+  kanji: {
+    fontSize: 128,
+    padding: 20,
+    //fontWeight: "bold",
+    color: "#d9d9d9",
+  },
+  english: {
+    fontSize: 24,
+    padding: 20,
+    //fontWeight: "bold",
+    color: "#d9d9d9",
+  },
+  extraInfo: {
+    fontSize: 18,
+    padding: 10,
+    color: "#d9d9d9",
+  },
+});
 
 export default KanjiDetails;
