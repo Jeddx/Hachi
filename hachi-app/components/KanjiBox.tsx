@@ -1,3 +1,8 @@
+/*
+KanjiBox is a component that displays the Kanji and can be hovered over to display english meaning, 
+It can be clicked to see more details
+*/
+
 import React, { useState } from "react";
 import {
   View,

@@ -1,3 +1,7 @@
+/* 
+The KanjiData component reads the kanji database and stores its information in a Kanji object
+*/
+
 import * as SQLite from "expo-sqlite";
 import { useCallback, useState } from "react";
 import { useFocusEffect } from "expo-router";
@@ -8,10 +12,10 @@ type Kanji = {
   on_readings: string;
   kun_readings: string;
   meanings: string;
-  jlpt_level: number;
-  examples: string;
-  updated_at: string;
+  jlpt: number;
 };
+//examples: string;
+//updated_at: string;
 
 const KanjiData = () => {
   // const [id, setId] = useState("");

@@ -1,3 +1,5 @@
+//The KanjiList component takes KanjiBoxes and displays them in a flatlist
+
 import React from "react";
 import {
   View,

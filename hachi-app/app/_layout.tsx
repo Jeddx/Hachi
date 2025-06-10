@@ -10,6 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
+import * as SQLite from "expo-sqlite";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -52,18 +53,18 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    // <SQLiteProvider
-    //   databaseName="kanji-entries"
-    //   assetSource={{
-    //     assetId: require("hachi-app/assets/local_db_tables/kanji_entries.db"),
-    //   }}
-    // >
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
-    </ThemeProvider>
-    // </SQLiteProvider>
+    <SQLite.SQLiteProvider
+      databaseName="kanji-entries"
+      assetSource={{
+        assetId: require("../assets/local_db_tables/kanji_entries.db"),
+      }}
+    >
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
+      </ThemeProvider>
+    </SQLite.SQLiteProvider>
   );
 }

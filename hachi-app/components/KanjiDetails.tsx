@@ -1,3 +1,5 @@
+//KanjiDetails is used on the Kanji Screen to display the current Kanjis information
+
 import { Text } from "@/components/Themed";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
@@ -22,7 +24,10 @@ const KanjiDetails = () => {
       <Text style={styles.english}>{kanji.meanings}</Text>
       <Text style={styles.extraInfo}> kun-readings {kanji.kun_readings}</Text>
       <Text style={styles.extraInfo}> on-readings {kanji.on_readings}</Text>
-      <Text style={styles.extraInfo}> JLPT Level {kanji.jlpt_level}</Text>
+      {kanji.jlpt && (
+        <Text style={styles.extraInfo}> JLPT Level N{kanji.jlpt}</Text>
+      )}
+      <Text style={styles.extraInfo}> ID: {kanji.id}</Text>
     </View>
   );
 };
