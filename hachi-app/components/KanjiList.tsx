@@ -9,39 +9,44 @@ import {
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import KanjiBox from "./KanjiBox";
-import * as SQLite from "expo-sqlite";
-import { useCallback, useState } from "react";
-import { useFocusEffect } from "expo-router";
+import KanjiData from "./KanjiData";
 
-type Kanji = {
-  id: number;
-  character: string;
-  on_readings: string;
-  kun_readings: string;
-  meanings: string;
-  jlpt_level: number;
-  examples: string;
-  updated_at: string;
-};
+// import * as SQLite from "expo-sqlite";
+// import { useCallback, useState } from "react";
+// import { useFocusEffect } from "expo-router";
+//import KanjiDATA from "@/app/Kanji/[id]";
+
+// type Kanji = {
+//   id: number;
+//   kanji: string;
+//   on_readings: string;
+//   kun_readings: string;
+//   meanings: string;
+//   jlpt_level: number;
+//   examples: string;
+//   updated_at: string;
+// };
 
 const KanjiList = () => {
   // const [id, setId] = useState("");
   // const [character, setCharacter] = useState("");
   // const [meanings, setmeanings] = useState("");
-  const [kanjiDATA, setData] = useState<Kanji[]>([]);
+  // const [kanjiDATA, setData] = useState<Kanji[]>([]);
 
-  const db = SQLite.useSQLiteContext();
+  // const db = SQLite.useSQLiteContext();
 
-  const loadData = async () => {
-    const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
-    setData(result);
-  };
+  // const loadData = async () => {
+  //   const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
+  //   setData(result);
+  // };
 
-  useFocusEffect(
-    useCallback(() => {
-      loadData();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     loadData();
+  //   }, [])
+  // );
+
+  //const kanjiDATA = KanjiData();
 
   return (
     <SafeAreaProvider>
@@ -49,13 +54,10 @@ const KanjiList = () => {
         <FlatList
           numColumns={10}
           showsVerticalScrollIndicator={false}
-          data={kanjiDATA}
+          data={KanjiData()}
+          contentContainerStyle={{ alignItems: "stretch" }}
           renderItem={({ item }) => (
-            <KanjiBox
-              symbol={item.kun_readings} //Supposed to be kanji but they are currently invisible
-              english={item.meanings}
-              id={item.id}
-            />
+            <KanjiBox kanji={item.kanji} english={item.meanings} id={item.id} />
           )}
           //keyExtractor={(item) => item.id}
         />
