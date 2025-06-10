@@ -20,6 +20,8 @@ const KanjiDetails = () => {
     <View style={styles.container}>
       <Text style={styles.kanji}>{kanji.kanji}</Text>
       <Text style={styles.english}>{kanji.meanings}</Text>
+      <Text style={styles.extraInfo}> kun-readings {kanji.kun_readings}</Text>
+      <Text style={styles.extraInfo}> on-readings {kanji.on_readings}</Text>
       <Text style={styles.extraInfo}> JLPT Level {kanji.jlpt_level}</Text>
     </View>
   );
@@ -38,13 +40,13 @@ const styles = StyleSheet.create({
   },
   english: {
     fontSize: 24,
-    padding: 20,
+    padding: 10,
     //fontWeight: "bold",
     color: "#d9d9d9",
   },
   extraInfo: {
     fontSize: 18,
-    padding: 10,
+    padding: 5,
     color: "#d9d9d9",
   },
 });
