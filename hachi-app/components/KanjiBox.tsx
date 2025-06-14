@@ -24,20 +24,20 @@ const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
       onHoverOut={() => setIsHovered(false)}
       style={({ hovered }) => [styles.box, hovered && styles.hovered]}
     >
-      <TouchableOpacity>
-        <Link
-          href={{ pathname: "/Kanji/KanjiScreen", params: { kanji: kanji } }} //Maybe this needs to be changed to a string?
-          push
-          asChild
-        >
+      <Link
+        href={{ pathname: "/Kanji/KanjiScreen", params: { kanji: kanji } }} //Maybe this needs to be changed to a string?
+        push
+        asChild
+      >
+        <TouchableOpacity>
           <Text style={styles.kanji}>{kanji}</Text>
-        </Link>
-        {isHovered && (
-          <View>
-            <Text style={styles.english}>{english}</Text>
-          </View>
-        )}
-      </TouchableOpacity>
+          {isHovered && (
+            <View>
+              <Text style={styles.english}>{english}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </Link>
     </Pressable>
   );
 };

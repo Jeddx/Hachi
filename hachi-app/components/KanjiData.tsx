@@ -3,7 +3,7 @@ The KanjiData component reads the kanji database and stores its information in a
 */
 
 import * as SQLite from "expo-sqlite";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useFocusEffect } from "expo-router";
 
 type Kanji = {
@@ -27,7 +27,18 @@ const KanjiData = () => {
 
   const loadData = async () => {
     const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
+    console.log("Rows:", result);
+
     setData(result);
+
+    try {
+      const tables = await db.getAllAsync<any>(
+        "SELECT name FROM sqlite_master WHERE type='table';"
+      );
+      console.log("Existing tables:", tables);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
   };
 
   useFocusEffect(

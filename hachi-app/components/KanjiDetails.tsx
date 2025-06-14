@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   kanji: {
     fontSize: 128,
     padding: 20,
-    //fontWeight: "bold",
     color: "#d9d9d9",
   },
   english: {
