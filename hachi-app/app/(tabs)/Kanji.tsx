@@ -8,7 +8,6 @@ The Kanji boxes will be difference colors depending on user proficiency
 import { StyleSheet } from "react-native";
 import { Text, View } from "@/components/Themed";
 import KanjiList from "@/components/KanjiList";
-import * as SQLite from "expo-sqlite";
 
 export default function KanjiScreen() {
   // const createDbIfNeeded = async (db: SQLite.SQLiteDatabase) => {
@@ -16,11 +15,14 @@ export default function KanjiScreen() {
   //     "CREATE TABLE IF NOT EXISTS kanji_entries (id INTEGER PRIMARY KEY, character TEXT NOT NULL, on_readings TEXT, kun_readings TEXT, meanings TEXT, jlpt_level INTEGER, examples TEXT, updated_at TEXT DEFAULT CURRENT_TIMESTAMP)"
   //   );
   // };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Kanji</Text>
-      <KanjiList />
+      <KanjiList jlpt_level={5} />
+      <KanjiList jlpt_level={4} />
+      <KanjiList jlpt_level={3} />
+      <KanjiList jlpt_level={2} />
+      <KanjiList jlpt_level={1} />
     </View>
   );
 }

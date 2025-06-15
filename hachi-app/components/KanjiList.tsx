@@ -12,21 +12,23 @@ import {
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import KanjiBox from "./KanjiBox";
 import KanjiData from "./KanjiData";
-import * as SQLite from "expo-sqlite";
 
-const KanjiList = () => {
+type KanjiListProps = { jlpt_level: number };
+
+const KanjiList = ({ jlpt_level }: KanjiListProps) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+        <Text>JLPT {jlpt_level}</Text>
         <FlatList
           numColumns={15}
           showsVerticalScrollIndicator={false}
-          data={KanjiData()}
+          data={KanjiData(jlpt_level)}
           contentContainerStyle={{ alignItems: "stretch" }}
           renderItem={({ item }) => (
             <KanjiBox kanji={item.kanji} english={item.meanings} id={item.id} />
           )}
-          //keyExtractor={(item) => item.id}
+          //keyExtractor={(item) => item.id.toString()}
         />
       </SafeAreaView>
     </SafeAreaProvider>
