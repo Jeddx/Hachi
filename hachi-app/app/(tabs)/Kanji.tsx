@@ -5,7 +5,7 @@ A search feature would be nice as well
 The Kanji boxes will be difference colors depending on user proficiency
 */
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { Text, View } from "@/components/Themed";
 import KanjiList from "@/components/KanjiList";
 
@@ -16,23 +16,32 @@ export default function KanjiScreen() {
   //   );
   // };
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <Text style={styles.title}>Kanji</Text>
       <KanjiList jlpt_level={5} />
       <KanjiList jlpt_level={4} />
       <KanjiList jlpt_level={3} />
       <KanjiList jlpt_level={2} />
       <KanjiList jlpt_level={1} />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#2a2a2a",
+  },
+  contentContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#2a2a2a",
+    //flex: 1,
+  },
+  kanjiList: {
+    padding: 50,
   },
   title: {
     fontSize: 20,

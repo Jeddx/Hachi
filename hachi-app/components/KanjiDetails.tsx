@@ -9,7 +9,7 @@ import { StyleSheet } from "react-native";
 const KanjiDetails = () => {
   const params = useLocalSearchParams<{ kanji: string }>();
 
-  const kanji = KanjiData(1).find((k) => k.kanji === params.kanji); //Since we are no longer using KanjiDATA need to read from db
+  const kanji = KanjiData(1).find((k) => k.kanji === params.kanji); //Find a better way to access the kanji data
 
   if (!kanji) {
     return (
