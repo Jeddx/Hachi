@@ -9,12 +9,12 @@ import { StyleSheet } from "react-native";
 const KanjiDetails = () => {
   const params = useLocalSearchParams<{ kanji: string }>();
 
-  const kanji = KanjiData(1).find((k) => k.kanji === params.kanji); //Find a better way to access the kanji data
+  const kanji = KanjiData().find((k) => k.kanji === params.kanji); //Find a better way to access the kanji data
 
   if (!kanji) {
     return (
-      <View>
-        <Text>Not Found</Text>
+      <View style={styles.container}>
+        <Text style={styles.extraInfo}>Loading... </Text>
       </View>
     );
   }

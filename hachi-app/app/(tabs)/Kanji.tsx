@@ -26,6 +26,7 @@ export default function KanjiScreen() {
       <KanjiList jlpt_level={3} />
       <KanjiList jlpt_level={2} />
       <KanjiList jlpt_level={1} />
+      {/* <KanjiList jlpt_level={0} /> */}
     </ScrollView>
   );
 }

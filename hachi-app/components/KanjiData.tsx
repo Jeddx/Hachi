@@ -17,11 +17,7 @@ type Kanji = {
 //examples: string;
 //updated_at: string;
 
-const KanjiData = (jlpt_level: number) => {
-  // const [id, setId] = useState("");
-  // const [character, setCharacter] = useState("");
-  // const [meanings, setmeanings] = useState("");
-
+const KanjiData = (jlpt_level?: number) => {
   const [kanjiDATA, setData] = useState<Kanji[]>([]);
 
   const db = SQLite.useSQLiteContext();
@@ -30,11 +26,16 @@ const KanjiData = (jlpt_level: number) => {
     const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
     console.log("Rows:", result);
 
-    const filteredResult = result.filter((k) => Number(k.jlpt) === jlpt_level);
-    console.log("Rows filtered:", filteredResult);
-    setData(filteredResult);
-
-    //setData(result);
+    if (jlpt_level != null) {
+      const filteredResult = result.filter(
+        (k) => Number(k.jlpt) === jlpt_level
+      );
+      console.log("Rows filtered:", filteredResult);
+      setData(filteredResult);
+    } else {
+      setData(result);
+      console.log("Rows Unfiltered");
+    }
 
     try {
       const tables = await db.getAllAsync<any>(

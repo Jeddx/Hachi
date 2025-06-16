@@ -21,7 +21,7 @@ const KanjiList = ({ jlpt_level }: KanjiListProps) => {
         renderItem={({ item }) => (
           <KanjiBox kanji={item.kanji} english={item.meanings} id={item.id} />
         )}
-        //keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.kanji}
       />
     </View>
   );
