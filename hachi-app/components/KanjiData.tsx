@@ -14,8 +14,6 @@ type Kanji = {
   meanings: string;
   jlpt: number;
 };
-//examples: string;
-//updated_at: string;
 
 const KanjiData = (jlpt_level?: number) => {
   const [kanjiDATA, setData] = useState<Kanji[]>([]);

@@ -6,6 +6,10 @@ import { View } from "react-native";
 import KanjiData from "@/components/KanjiData";
 import { StyleSheet } from "react-native";
 
+function simplifyStr(str: string): string {
+  return str.replace(/[\[\]"']/g, "");
+}
+
 const KanjiDetails = () => {
   const params = useLocalSearchParams<{ kanji: string }>();
 
@@ -21,9 +25,15 @@ const KanjiDetails = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.kanji}>{kanji.kanji}</Text>
-      <Text style={styles.english}>{kanji.meanings}</Text>
-      <Text style={styles.extraInfo}> kun-readings {kanji.kun_readings}</Text>
-      <Text style={styles.extraInfo}> on-readings {kanji.on_readings}</Text>
+      <Text style={styles.english}>{simplifyStr(kanji.meanings)}</Text>
+      <Text style={styles.extraInfo}>
+        {" "}
+        kun-readings: {simplifyStr(kanji.kun_readings)}
+      </Text>
+      <Text style={styles.extraInfo}>
+        {" "}
+        on-readings: {simplifyStr(kanji.on_readings)}
+      </Text>
       {kanji.jlpt && (
         <Text style={styles.extraInfo}> JLPT Level N{kanji.jlpt}</Text>
       )}
