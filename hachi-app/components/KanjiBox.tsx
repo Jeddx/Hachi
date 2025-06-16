@@ -15,6 +15,10 @@ import { Link } from "expo-router";
 
 type KanjiBoxProps = { kanji: string; english: string; id: number };
 
+function getFirstWord(str: string): string {
+  return str.replace(/[\[\]"']/g, "").split(",")[0];
+}
+
 const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -33,7 +37,7 @@ const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
           <Text style={styles.kanji}>{kanji}</Text>
           {isHovered && (
             <View>
-              <Text style={styles.english}>{english}</Text>
+              <Text style={styles.english}>{getFirstWord(english)}</Text>
             </View>
           )}
         </TouchableOpacity>
