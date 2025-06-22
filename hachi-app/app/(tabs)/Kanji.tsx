@@ -20,7 +20,6 @@ export default function KanjiScreen() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <Text style={styles.title}>Kanji</Text>
       <KanjiList jlpt_level={5} />
       <KanjiList jlpt_level={4} />
       <KanjiList jlpt_level={3} />

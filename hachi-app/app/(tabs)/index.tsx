@@ -25,8 +25,11 @@ export default function TabOneScreen() {
     },
   ];
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Dictionary</Text>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
+      {/* <Text style={styles.title}>Dictionary</Text> */}
       <SearchBar />
       <View
         style={styles.separator}
@@ -55,9 +58,11 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#2a2a2a",
+  },
+  contentContainer: {
     //alignItems: "center",
     //justifyContent: "center",
-    backgroundColor: "#2a2a2a",
   },
   title: {
     fontSize: 20,
@@ -65,9 +70,11 @@ const styles = StyleSheet.create({
     color: "#d9d9d9",
   },
   separator: {
-    marginVertical: 30,
+    marginBottom: 5,
     height: 1,
-    width: "80%",
+    width: "95%",
+    justifyContent: "center",
+    alignContent: "center",
     backgroundColor: "#212121",
   },
 });
