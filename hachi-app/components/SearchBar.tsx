@@ -3,28 +3,28 @@ import { StyleSheet, TextInput, View } from "react-native";
 
 export default function SearchBar() {
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search"
-        placeholderTextColor="#888"
-      />
-    </View>
+    <TextInput
+      style={styles.input}
+      placeholder="Search"
+      placeholderTextColor="#d9d9d9"
+    />
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#2a2a2a",
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   input: {
     height: 40,
     width: "80%",
+    justifyContent: "flex-start",
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    backgroundColor: "#f9f9f9",
+    marginTop: 10,
+    backgroundColor: "#5e5e5e",
   },
 });

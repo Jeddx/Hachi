@@ -1,9 +1,9 @@
-import { StyleSheet, FlatList } from "react-native";
-import EditScreenInfo from "@/components/EditScreenInfo";
+import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text, View } from "@/components/Themed";
-import ImageBG from "@/components/imageBG";
 import SearchBar from "@/components/SearchBar";
 import SearchResult from "@/components/SearchResult";
+import KanjiData from "@/components/KanjiData";
+import VocabBox from "@/components/Dictionary/VocabBox";
 
 export default function TabOneScreen() {
   const DATA = [
@@ -25,36 +25,49 @@ export default function TabOneScreen() {
     },
   ];
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Dictionary</Text>
+      <SearchBar />
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <SearchBar></SearchBar>
-      <FlatList
+      {/* <FlatList
         data={DATA}
         renderItem={({ item }) => <SearchResult {...item}></SearchResult>}
-      ></FlatList>
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+      /> */}
+      <FlatList
+        //style={styles.list}
+        numColumns={1}
+        scrollEnabled={false}
+        data={KanjiData()}
+        contentContainerStyle={{ alignItems: "stretch" }}
+        renderItem={({ item }) => (
+          <VocabBox kanji={item.kanji} english={item.meanings} id={item.id} />
+        )}
+        keyExtractor={(item) => item.kanji}
+      />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    //alignItems: "center",
+    //justifyContent: "center",
+    backgroundColor: "#2a2a2a",
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    color: "#d9d9d9",
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: "80%",
+    backgroundColor: "#212121",
   },
 });

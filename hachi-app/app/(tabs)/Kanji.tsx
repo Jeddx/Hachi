@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     color: "#d9d9d9",
   },
   separator: {
-    marginVertical: 30,
     height: 1,
     width: "80%",
   },
