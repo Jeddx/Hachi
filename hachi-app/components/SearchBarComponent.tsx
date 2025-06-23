@@ -1,12 +1,20 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
+import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
 
-export default function SearchBar() {
+export default function SearchBarComponent() {
   return (
-    <TextInput
-      style={styles.input}
+    // <TextInput
+    //   style={styles.input}
+    //   placeholder="Search"
+    //   placeholderTextColor="#d9d9d9"
+    // />
+    <SearchBar
+      platform="default"
       placeholder="Search"
-      placeholderTextColor="#d9d9d9"
+      style={styles.input}
+      //onChangeText={this.updateSearch}
+      //value={search}
     />
   );
 }

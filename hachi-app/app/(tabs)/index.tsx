@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text, View } from "@/components/Themed";
-import SearchBar from "@/components/SearchBar";
+import SearchBarComponent from "@/components/SearchBarComponent";
 import SearchResult from "@/components/SearchResult";
 import KanjiData from "@/components/KanjiData";
 import VocabBox from "@/components/Dictionary/VocabBox";
@@ -30,7 +30,7 @@ export default function TabOneScreen() {
       contentContainerStyle={styles.contentContainer}
     >
       {/* <Text style={styles.title}>Dictionary</Text> */}
-      <SearchBar />
+      <SearchBarComponent />
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -44,7 +44,7 @@ export default function TabOneScreen() {
         //style={styles.list}
         numColumns={1}
         scrollEnabled={false}
-        data={KanjiData()}
+        data={KanjiData().slice(0, 200)}
         contentContainerStyle={{ alignItems: "stretch" }}
         renderItem={({ item }) => (
           <VocabBox kanji={item.kanji} english={item.meanings} id={item.id} />
