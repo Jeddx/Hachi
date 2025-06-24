@@ -21,6 +21,18 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerStyle: {
+          backgroundColor: "#2a2a2a", // ← Change this to your desired color
+        },
+        tabBarStyle: {
+          backgroundColor: "#2a2a2a",
+          borderTopColor: "#616161",
+          // borderTopWidth: 0, // remove top border
+          // elevation: 0, // remove Android shadow
+          // shadowColor: "transparent", // remove iOS shadow
+        },
+        headerShadowVisible: false,
+        headerTintColor: "#fff",
         tabBarActiveTintColor: "#FFD972",
         tabBarActiveBackgroundColor: "#171717",
         tabBarInactiveBackgroundColor: "#212121",
@@ -51,7 +63,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="Study"
         options={{
           title: "Study",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
