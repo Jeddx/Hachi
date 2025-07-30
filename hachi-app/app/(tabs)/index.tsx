@@ -6,6 +6,7 @@ import SearchResult from "@/components/SearchResult";
 import KanjiData from "@/components/KanjiData";
 import VocabBox from "@/components/Dictionary/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
+//Changing this from the ios one makes it go bonkers so cant remove cancel button
 
 export default function TabOneScreen() {
   // State to manage the filtered data and search input
