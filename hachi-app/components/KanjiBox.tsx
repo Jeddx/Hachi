@@ -13,13 +13,13 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 
-type KanjiBoxProps = { kanji: string; english: string; id: number };
+type FlashcardProps = { kanji: string; english: string; id: number };
 
 function getFirstWord(str: string): string {
   return str.replace(/[\[\]"']/g, "").split(",")[0];
 }
 
-const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
+const KanjiBox = ({ kanji, english, id }: FlashcardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
