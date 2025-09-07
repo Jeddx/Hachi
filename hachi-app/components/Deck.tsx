@@ -17,6 +17,7 @@ const Deck = ({ name, learn, review }: DeckProps) => {
       <Text style={styles.nameText}>{name}</Text>
       <Text style={styles.learnNumber}>{learn}</Text>
       <Text style={styles.reviewNumber}>{review}</Text>
+      {/* <Button title="Study" onPress={() => }/> */}
     </View>
   );
 };
