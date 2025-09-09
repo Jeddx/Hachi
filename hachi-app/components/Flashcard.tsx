@@ -4,22 +4,16 @@ It can be clicked to see more details
 */
 
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
 import { Link } from "expo-router";
 
-type KanjiBoxProps = { kanji: string; english: string; id: number };
+type FlashcardProps = { kanji: string; english: string; id: number };
 
-function getFirstWord(str: string): string {
-  return str.replace(/[\[\]"']/g, "").split(",")[0];
+function getWords(str: string): string {
+  return str.replace(/[\[\]"']/g, "");
 }
 
-const Flashcard = ({ kanji, english, id }: KanjiBoxProps) => {
+const Flashcard = ({ kanji, english, id }: FlashcardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
@@ -30,7 +24,17 @@ const Flashcard = ({ kanji, english, id }: KanjiBoxProps) => {
       {isPressed && (
         <View style={styles.box}>
           <View style={styles.separator} />
-          <Text style={styles.english}>{getFirstWord(english)}</Text>
+          <Text style={styles.english}>{getWords(english)}</Text>
+          <Button
+            title="Bad"
+            onPress={() => Alert.alert("Bad")}
+            color="#ff0000ff"
+          />
+          <Button
+            title="Good"
+            onPress={() => Alert.alert("Good")}
+            color="#029600ff"
+          />
         </View>
       )}
     </Pressable>

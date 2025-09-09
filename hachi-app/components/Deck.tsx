@@ -4,7 +4,8 @@ It can be clicked to see more details
 */
 
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { Link } from "expo-router";
 
 type DeckProps = { name: string; learn: number; review: number };
 
@@ -17,7 +18,16 @@ const Deck = ({ name, learn, review }: DeckProps) => {
       <Text style={styles.nameText}>{name}</Text>
       <Text style={styles.learnNumber}>{learn}</Text>
       <Text style={styles.reviewNumber}>{review}</Text>
-      {/* <Button title="Study" onPress={() => }/> */}
+      <Link
+        href={{ pathname: "/Study/StudyScreen" }} //Maybe this needs to be changed to a string? params: { deckName: name }
+        push
+        asChild
+      >
+        <Button
+          title="Study"
+          onPress={() => Alert.alert("Simple Button pressed")}
+        />
+      </Link>
     </View>
   );
 };
