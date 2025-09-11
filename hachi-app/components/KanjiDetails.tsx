@@ -3,7 +3,7 @@
 import { Text } from "@/components/Themed";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
-import KanjiData from "@/components/KanjiData";
+import useKanjiData from "./useKanjiData";
 import { StyleSheet } from "react-native";
 
 function simplifyStr(str: string): string {
@@ -14,7 +14,8 @@ const KanjiDetails = () => {
   const params = useLocalSearchParams<{ id: string }>();
   const id = Number(params.id);
   // const kanji = KanjiData().find((k) => Kanji === params.id); //Find a better way to access the kanji data
-  const kanji = KanjiData()[id];
+  const { kanjiData, loading } = useKanjiData();
+  const kanji = kanjiData[id];
 
   if (!kanji) {
     return (

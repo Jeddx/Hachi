@@ -20,11 +20,11 @@ export default function KanjiScreen() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <KanjiList jlpt_level={5} />
       <KanjiList jlpt_level={4} />
+      {/* <KanjiList jlpt_level={4} />
       <KanjiList jlpt_level={3} />
       <KanjiList jlpt_level={2} />
-      <KanjiList jlpt_level={1} />
+      <KanjiList jlpt_level={1} /> */}
       {/* <KanjiList jlpt_level={0} /> */}
     </ScrollView>
   );
