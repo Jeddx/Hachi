@@ -42,7 +42,7 @@ export default function TabOneScreen() {
       contentContainerStyle={styles.contentContainer}
     >
       {/* <Text style={styles.title}>Dictionary</Text> */}
-      <SearchBar
+      {/* <SearchBar
         platform="default"
         placeholder="Search"
         style={styles.input}
@@ -58,10 +58,10 @@ export default function TabOneScreen() {
         data={data} //KanjiData().slice(0, 200)
         contentContainerStyle={{ alignItems: "stretch" }}
         renderItem={({ item }) => (
-          <VocabBox kanji={item.kanji} english={item.meanings} id={item.id} />
+          <VocabBox id={item.id} />
         )}
         keyExtractor={(item) => item.kanji}
-      />
+      /> */}
       {/* <SearchBarComponent /> */}
       <View
         style={styles.separator}

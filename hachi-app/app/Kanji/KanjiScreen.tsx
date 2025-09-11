@@ -11,9 +11,6 @@ export default function KanjiScreen() {
   return (
     <View style={styles.container}>
       <KanjiDetails />
-
-      {/* <Text>{kanji.kanji}</Text>
-      <Text>{kanji.meanings}</Text> */}
     </View>
   );
 }

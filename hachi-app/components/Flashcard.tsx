@@ -5,26 +5,26 @@ It can be clicked to see more details
 
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
-import { Link } from "expo-router";
+import Card from "./FlashcardData";
 
-type FlashcardProps = { kanji: string; english: string; id: number };
+type FlashcardProps = { front: string; back: string; id: number };
 
 function getWords(str: string): string {
   return str.replace(/[\[\]"']/g, "");
 }
 
-const Flashcard = ({ kanji, english, id }: FlashcardProps) => {
+const Flashcard = ({ front, back, id }: FlashcardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   return (
     <Pressable onPress={onPress} style={styles.box}>
-      <Text style={styles.kanji}>{kanji}</Text>
+      <Text style={styles.kanji}>{front}</Text>
 
       {isPressed && (
         <View style={styles.box}>
           <View style={styles.separator} />
-          <Text style={styles.english}>{getWords(english)}</Text>
+          <Text style={styles.english}>{getWords(back)}</Text>
           <Button
             title="Bad"
             onPress={() => Alert.alert("Bad")}

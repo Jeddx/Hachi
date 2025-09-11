@@ -11,15 +11,17 @@ import {
   Pressable,
 } from "react-native";
 import { Link } from "expo-router";
+import KanjiData from "../KanjiData";
 
-type KanjiBoxProps = { kanji: string; english: string; id: number };
+type VocabBoxProps = { id: number };
 
 function getFirstWord(str: string): string {
   return str.replace(/[\[\]"']/g, "").split(",")[0];
 }
 
-const VocabBox = ({ kanji, english, id }: KanjiBoxProps) => {
+const VocabBox = ({ id }: VocabBoxProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const kanji = KanjiData()[id];
 
   return (
     <Pressable
@@ -28,13 +30,13 @@ const VocabBox = ({ kanji, english, id }: KanjiBoxProps) => {
       style={({ hovered }) => [styles.box, hovered && styles.hovered]}
     >
       <Link
-        href={{ pathname: "/Kanji/KanjiScreen", params: { kanji: kanji } }} //Maybe this needs to be changed to a string?
+        href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }} //Maybe this needs to be changed to a string?
         push
         asChild
       >
         <TouchableOpacity>
-          <Text style={styles.kanji}>{kanji}</Text>
-          <Text style={styles.english}>{getFirstWord(english)}</Text>
+          <Text style={styles.kanji}>{kanji.kanji}</Text>
+          <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
         </TouchableOpacity>
       </Link>
       <View style={styles.separator} />
