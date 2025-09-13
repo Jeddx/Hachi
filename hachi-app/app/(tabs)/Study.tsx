@@ -23,8 +23,8 @@ export default function TabTwoScreen() {
       {/* <View style={styles.separator} /> */}
       <DeckList />
       <Flashcard
-        front={arrayholder[0].kanji}
-        back={arrayholder[0].meanings}
+        kanji={arrayholder[0].kanji}
+        english={arrayholder[0].meanings}
         id={arrayholder[0].id}
       />
     </View>
