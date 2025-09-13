@@ -11,9 +11,9 @@ function simplifyStr(str: string): string {
 }
 
 const KanjiDetails = () => {
-  const params = useLocalSearchParams<{ kanji: string }>();
-
-  const kanji = KanjiData().find((k) => k.kanji === params.kanji); //Find a better way to access the kanji data
+  const params = useLocalSearchParams<{ id: string }>();
+  const id = Number(params.id);
+  const kanji = KanjiData()[id]; //Find a better way to access the kanji data
 
   if (!kanji) {
     return (

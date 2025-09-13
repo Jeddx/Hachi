@@ -18,9 +18,7 @@ const KanjiList = ({ jlpt_level }: KanjiListProps) => {
         scrollEnabled={false}
         data={KanjiData(jlpt_level)}
         contentContainerStyle={{ alignItems: "stretch" }}
-        renderItem={({ item }) => (
-          <KanjiBox kanji={item.kanji} english={item.meanings} id={item.id} />
-        )}
+        renderItem={({ item }) => <KanjiBox kanji={item} />}
         keyExtractor={(item) => item.kanji}
       />
     </View>

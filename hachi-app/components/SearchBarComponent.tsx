@@ -48,9 +48,7 @@ export default function SearchBarComponent() {
         scrollEnabled={false}
         data={data} //KanjiData().slice(0, 200)
         contentContainerStyle={{ alignItems: "stretch" }}
-        renderItem={({ item }) => (
-          <VocabBox kanji={item.kanji} english={item.meanings} id={item.id} />
-        )}
+        renderItem={({ item }) => <VocabBox kanji={item} />}
         keyExtractor={(item) => item.kanji}
       />
     </View>

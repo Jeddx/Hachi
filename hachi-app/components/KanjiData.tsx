@@ -17,11 +17,13 @@ type Kanji = {
 
 const KanjiData = (jlpt_level?: number) => {
   const [kanjiDATA, setData] = useState<Kanji[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const db = SQLite.useSQLiteContext();
 
   const loadData = async () => {
-    const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
+    let result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
+    result = result.map((item, index) => ({ ...item, id: index }));
     console.log("Rows:", result);
 
     if (jlpt_level != null) {
