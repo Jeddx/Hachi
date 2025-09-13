@@ -12,26 +12,16 @@ import {
   Pressable,
 } from "react-native";
 import { Link } from "expo-router";
-import KanjiData from "./KanjiData";
 
-type KanjiBoxProps = { kanji: string; english: string; id: number };
+type FlashcardProps = { kanji: string; english: string; id: number };
 
 function getFirstWord(str: string): string {
   return str.replace(/[\[\]"']/g, "").split(",")[0];
 }
 
-const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
+const KanjiBox = ({ kanji, english, id }: FlashcardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [kanjiData, setKanjiData] = KanjiData();
-  // const handleKanjiData = (KanjiData()[id]) => {
-  //   setKanjiData(KanjiData()[id]);
-  // }
-  if(!kanjiData){ //Wont work, might just pass through parameter when using in kanjilist, although would be good to sort out
-    return (<Text>Loading...</Text>);
-  }
-  //const kanjiData = KanjiData()[id]; //Trying to access kanji via ID, but is empty likely bc no use of SQLite
-  //console.log("KanjiBox kanji", kanjiData);
-  //const kanjitwo = arrayholder[id];
+
   return (
     <Pressable
       onHoverIn={() => setIsHovered(true)}
@@ -39,7 +29,7 @@ const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
       style={({ hovered }) => [styles.box, hovered && styles.hovered]}
     >
       <Link
-        href={{ pathname: "/Kanji/KanjiScreen", params: { id: id } }} //Maybe this needs to be changed to a string?
+        href={{ pathname: "/Kanji/KanjiScreen", params: { kanji: kanji } }} //Maybe this needs to be changed to a string?
         push
         asChild
       >
@@ -47,7 +37,7 @@ const KanjiBox = ({ kanji, english, id }: KanjiBoxProps) => {
           <Text style={styles.kanji}>{kanji}</Text>
           {isHovered && (
             <View>
-              <Text style={styles.english}>{getFirstWord(KanjiData()[id].meanings)}</Text>
+              <Text style={styles.english}>{getFirstWord(english)}</Text>
             </View>
           )}
         </TouchableOpacity>

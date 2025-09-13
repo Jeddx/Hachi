@@ -11,10 +11,9 @@ function simplifyStr(str: string): string {
 }
 
 const KanjiDetails = () => {
-  const params = useLocalSearchParams<{ id: string }>();
-  const id = Number(params.id);
-  // const kanji = KanjiData().find((k) => Kanji === params.id); //Find a better way to access the kanji data
-  const kanji = KanjiData()[id];
+  const params = useLocalSearchParams<{ kanji: string }>();
+
+  const kanji = KanjiData().find((k) => k.kanji === params.kanji); //Find a better way to access the kanji data
 
   if (!kanji) {
     return (
@@ -38,7 +37,7 @@ const KanjiDetails = () => {
       {kanji.jlpt && (
         <Text style={styles.extraInfo}> JLPT Level N{kanji.jlpt}</Text>
       )}
-      <Text style={styles.extraInfo}> ID: {params.id}</Text>
+      <Text style={styles.extraInfo}> ID: {kanji.id}</Text>
     </View>
   );
 };

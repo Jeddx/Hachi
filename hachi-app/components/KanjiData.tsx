@@ -21,8 +21,7 @@ const KanjiData = (jlpt_level?: number) => {
   const db = SQLite.useSQLiteContext();
 
   const loadData = async () => {
-    let result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
-    result = result.map((item, index) => ({ ...item, id: index }));
+    const result = await db.getAllAsync<Kanji>("SELECT * FROM kanji_entries;"); //getAllAsync
     console.log("Rows:", result);
 
     if (jlpt_level != null) {

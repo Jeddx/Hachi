@@ -10,7 +10,6 @@ import Flashcard from "./Flashcard";
 //type FlashcardListProps = {  };
 
 const FlashcardList = () => {
-  const [list, setList] = useState([]);
   return;
   //   if (.length === 0) {
   //     return (
