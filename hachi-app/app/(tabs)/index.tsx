@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text, View } from "@/components/Themed";
 import SearchBarComponent from "@/components/SearchBarComponent";
-import SearchResult from "@/components/SearchResult";
 import KanjiData from "@/components/KanjiData";
 import VocabBox from "@/components/Dictionary/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";

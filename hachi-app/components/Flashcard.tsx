@@ -1,25 +1,24 @@
 /*
-KanjiBox is a component that displays the Kanji and can be hovered over to display english meaning, 
-It can be clicked to see more details
+Flashcard is a layout for how a (anki style) flashcard should look when studying
 */
 
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
-import { Link } from "expo-router";
+import { CardProps } from "./Props/CardProps";
 
-type FlashcardProps = { kanji: string; english: string; id: number };
+//type FlashcardProps = { kanji: string; english: string; id: number };
 
 function getWords(str: string): string {
   return str.replace(/[\[\]"']/g, "");
 }
 
-const Flashcard = ({ kanji, english, id }: FlashcardProps) => {
+const Flashcard = ({ japanese, english, id }: CardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   return (
     <Pressable onPress={onPress} style={styles.box}>
-      <Text style={styles.kanji}>{kanji}</Text>
+      <Text style={styles.kanji}>{japanese}</Text>
 
       {isPressed && (
         <View style={styles.box}>

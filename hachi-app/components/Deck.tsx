@@ -1,6 +1,5 @@
 /*
-KanjiBox is a component that displays the Kanji and can be hovered over to display english meaning, 
-It can be clicked to see more details
+Deck will display info on the Decks page and will transfer the study list to the study screen which will send it to the flashcard list
 */
 
 import React, { useState } from "react";

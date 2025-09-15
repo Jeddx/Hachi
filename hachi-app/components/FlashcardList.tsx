@@ -1,6 +1,5 @@
 /*
-KanjiBox is a component that displays the Kanji and can be hovered over to display english meaning, 
-It can be clicked to see more details
+Flashcard list will take in a list of cards and display each flashcard one at a time
 */
 
 import React, { useState } from "react";
@@ -8,9 +7,20 @@ import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
 import Flashcard from "./Flashcard";
 
 //type FlashcardListProps = {  };
+//Should obtain study list id from url then reference that
 
 const FlashcardList = () => {
-  return;
+  return (
+    <View>
+      <Text>List of Items:</Text>
+      {items.map((item) => (
+        <View key={item.id}>
+          <Text>Name: {item.name}</Text>
+          <Text>Value: {item.value}</Text>
+        </View>
+      ))}
+    </View>
+  );
   //   if (.length === 0) {
   //     return (
   //       <View style={styles.container}>
