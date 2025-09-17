@@ -1,10 +1,12 @@
 //Lists all the deck properties
+import { CardProps } from "./CardProps";
 
 export interface DeckProps {
   id: number;
   name: string;
-  newWords: number;
-  reviewWords: number;
+  cards: CardProps[];
+  learnCount: number;
+  reviewCount: number;
   totalWords: number;
   deckType: string;
 }

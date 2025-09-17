@@ -5,20 +5,27 @@ Deck will display info on the Decks page and will transfer the study list to the
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import { Link } from "expo-router";
+//import { CardProps } from "./Props/CardProps";
+import { DeckProps } from "./Props/DeckProps";
 
-type DeckProps = { name: string; learn: number; review: number };
+//type DeckProps = { name: string; learn: number; review: number };
 
-const Deck = ({ name, learn, review }: DeckProps) => {
+const Deck = (deck: DeckProps) => { //{ name, learn, review }: DeckProps
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   return (
     <View style={styles.content}>
-      <Text style={styles.nameText}>{name}</Text>
-      <Text style={styles.learnNumber}>{learn}</Text>
-      <Text style={styles.reviewNumber}>{review}</Text>
-      <Link
+      <Text style={styles.nameText}>{deck.name}</Text>
+      <Text style={styles.learnNumber}>{deck.cards.length}</Text>
+      <Text style={styles.reviewNumber}>{deck.reviewCount}</Text>
+      {/* <Link
         href={{ pathname: "/Study/StudyScreen" }} //Maybe this needs to be changed to a string? params: { deckName: name }
+        push
+        asChild
+      > */}
+      <Link
+        href={{ pathname: "/Study/StudyScreen", params: { id: deck.id } }}
         push
         asChild
       >

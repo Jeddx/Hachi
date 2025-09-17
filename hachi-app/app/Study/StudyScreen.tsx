@@ -5,8 +5,8 @@ import { View } from "react-native";
 import FlashcardList from "@/components/FlashcardList";
 import { StyleSheet } from "react-native";
 
-export default function KanjiScreen() {
-  return <View style={styles.container}>{/* <FlashcardList /> */}</View>;
+export default function StudyScreen() {
+  return <View style={styles.container}>{ <FlashcardList /> }</View>;
 }
 
 const styles = StyleSheet.create({

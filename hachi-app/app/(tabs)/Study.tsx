@@ -22,12 +22,12 @@ export default function TabTwoScreen() {
       {/* <Text style={styles.title}>Study</Text> */}
       {/* <View style={styles.separator} /> */}
       <DeckList />
-      <Flashcard
+      {/* <Flashcard
         proficiency={1}
         japanese={arrayholder[0].kanji}
         english={arrayholder[0].meanings}
         id={arrayholder[0].id}
-      />
+      /> */}
     </View>
   );
 }
