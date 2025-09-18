@@ -7,6 +7,5 @@ export interface DeckProps {
   cards: CardProps[];
   learnCount: number;
   reviewCount: number;
-  totalWords: number;
   deckType: string;
 }

@@ -10,7 +10,8 @@ import { DeckProps } from "./Props/DeckProps";
 
 //type DeckProps = { name: string; learn: number; review: number };
 
-const Deck = (deck: DeckProps) => { //{ name, learn, review }: DeckProps
+const Deck = (deck: DeckProps) => {
+  //{ name, learn, review }: DeckProps
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
@@ -43,8 +44,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121", //"#212121"
     alignItems: "center",
     width: "100%",
-    height: "100%",
     flexDirection: "row",
+    justifyContent: "space-between",
   },
   hovered: {
     backgroundColor: "#171717",
