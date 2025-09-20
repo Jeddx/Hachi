@@ -9,8 +9,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Pressable,
+  Image,
 } from "react-native";
 import { Link } from "expo-router";
+import { Button } from "react-native-elements";
 
 type KanjiBoxProps = { kanji: Kanji }; //kanji: string; english: string; id: number
 
@@ -42,12 +44,18 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
         push
         asChild
       >
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.mainArea}>
           <Text style={styles.kanji}>{kanji.kanji}</Text>
           <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
+          <View style={styles.separator} />
         </TouchableOpacity>
       </Link>
-      <View style={styles.separator} />
+      <TouchableOpacity style={styles.button}>
+        <Image
+          style={styles.image}
+          source={require("@/assets/images/honey-bee.jpg")}
+        />
+      </TouchableOpacity>
     </Pressable>
   );
 };
@@ -55,9 +63,11 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: "#2a2a2a", //
-    //padding: 10,
+    alignItems: "center",
     paddingHorizontal: 10,
     width: "100%",
+    maxHeight: 100,
+    flexDirection: "row",
   },
   hovered: {
     backgroundColor: "#212121",
@@ -73,10 +83,24 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 5,
     height: 1,
-    width: "95%",
+    //width: "95%",
     //justifyContent: "center",
     backgroundColor: "#212121",
   },
+  button: {
+    padding: 20,
+    //margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    //backgroundColor: "#25aa00ff",
+  },
+  mainArea: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  image: { resizeMode: "contain", aspectRatio: 1, height: 80, width: 80 },
 });
 
 export default VocabBox;

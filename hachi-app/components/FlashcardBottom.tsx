@@ -12,33 +12,14 @@ function getWords(str: string): string {
   return str.replace(/[\[\]"']/g, "");
 }
 
-const Flashcard = ({ japanese, english, id }: CardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+const FlashcardBottom = ({ japanese, english, id }: CardProps) => {
   const [isPressed, setIsPressed] = useState(false);
-  const onPress = () => setIsPressed(true); //style={styles.box}
   return (
-    // <Pressable onPress={onPress}>
-    <View>
-      <Text style={styles.kanji}>{japanese}</Text>
-
-      {isPressed && (
-        <View>
-          <View style={styles.separator} />
-          <Text style={styles.english}>{getWords(english)}</Text>
-          {/* <Button
-            title="Bad"
-            onPress={() => Alert.alert("Bad")}
-            color="#ff0000ff"
-          />
-          <Button
-            title="Good"
-            onPress={() => Alert.alert("Good")}
-            color="#029600ff"
-          /> */}
-        </View>
-      )}
+    // <Pressable onPress={onPress} style={styles.box}>
+    <View style={styles.box}>
+      <View style={styles.separator} />
+      <Text style={styles.english}>{getWords(english)}</Text>
     </View>
-    // </Pressable>
   );
 };
 
@@ -47,7 +28,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121", //"#212121"
     alignItems: "center",
     width: "100%",
-    height: "100%",
   },
   hovered: {
     backgroundColor: "#171717",
@@ -71,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Flashcard;
+export default FlashcardBottom;

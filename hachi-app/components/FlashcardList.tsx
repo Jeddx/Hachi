@@ -5,6 +5,7 @@ Flashcard list will take in a list of cards and display each flashcard one at a 
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
 import Flashcard from "./Flashcard";
+import FlashcardBottom from "./FlashcardBottom";
 import { CardProps } from "./Props/CardProps";
 import { useLocalSearchParams } from "expo-router";
 import SampleStudyList from "./Example/SampleStudyList";
@@ -14,15 +15,42 @@ import SampleStudyList from "./Example/SampleStudyList";
 
 const FlashcardList = () => {
   const params = useLocalSearchParams<{ id: string }>();
-  const [currentItem, setCurrentItem] = useState<number>(0);
+  const [currentItem, setCurrentItem] = useState(0);
+  const [isPressed, setIsPressed] = useState(false);
+  const onPress = () => setIsPressed(true);
   const id = Number(params.id);
   const list = SampleStudyList.cards;
 
   return (
-    <View>
-      {list.map((card: CardProps) => (
-        <Text key={card.id}><Flashcard {...card} /></Text>
-      ))}
+    <Pressable
+      onPress={onPress} //() => setCurrentItem((prev) => (prev + 1) % list.length)
+      style={styles.box}
+    >
+      <Flashcard {...list[currentItem]} />
+      {isPressed && (
+        <View style={styles.box}>
+          <FlashcardBottom {...list[currentItem]} />
+          <Button
+            title="Bad"
+            onPress={() => Alert.alert("Bad")}
+            color="#ff0000ff"
+          />
+          <Button
+            title="Good"
+            onPress={() => {
+              setIsPressed(false);
+              setCurrentItem((prev) => (prev + 1) % list.length);
+            }}
+            color="#029600ff"
+          />
+        </View>
+      )}
+
+      {/* {list.map((card: CardProps) => (
+        <Text key={card.id}>
+          <Flashcard {...card[currentItem]} />
+        </Text>
+      ))} */}
       {/* <Flashcard japanese={list[0].japanese} english={list[0].english} id={list[0].id} proficiency={0} /> */}
       {/* <Text>List of Items:</Text>
       {items.map((item) => (
@@ -31,7 +59,7 @@ const FlashcardList = () => {
           <Text>Value: {item.value}</Text>
         </View>
       ))} */}
-    </View>
+    </Pressable>
   );
   //   if (.length === 0) {
   //     return (
@@ -51,6 +79,7 @@ const FlashcardList = () => {
 
 const styles = StyleSheet.create({
   box: {
+    flex: 1,
     backgroundColor: "#212121", //"#212121"
     alignItems: "center",
     width: "100%",
