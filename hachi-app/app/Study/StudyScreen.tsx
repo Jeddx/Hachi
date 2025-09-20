@@ -6,7 +6,7 @@ import FlashcardList from "@/components/FlashcardList";
 import { StyleSheet } from "react-native";
 
 export default function StudyScreen() {
-  return <View style={styles.container}>{ <FlashcardList /> }</View>;
+  return <View style={styles.container}>{<FlashcardList />}</View>;
 }
 
 const styles = StyleSheet.create({

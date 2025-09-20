@@ -21,6 +21,9 @@ const FlashcardList = () => {
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   const id = Number(params.id);
+  const originalListLength = list.length;
+  const [correctCount, setCorrectCount] = useState(0);
+  const [retryCount, setRetryCount] = useState(0);
 
   //Will give the next card and add cards you get wrong to the end
   const handleNext = (correct: boolean) => {
@@ -31,42 +34,54 @@ const FlashcardList = () => {
 
     // Move to next flashcard
     setCurrentItem((prev) => prev + 1);
-    // if (currentItem < flashcards.length - 1) {
-
-    // }
   };
 
   return (
-    <Pressable
-      onPress={onPress} //() => setCurrentItem((prev) => (prev + 1) % list.length)
-      style={styles.box}
-    >
-      {(currentItem < flashcards.length && (
-        <Flashcard {...flashcards[currentItem]} />
-      )) || <Text style={styles.english}> Review Complete! </Text>}
+    <View style={styles.box}>
+      <Pressable
+        onPress={onPress} //() => setCurrentItem((prev) => (prev + 1) % list.length)
+        style={styles.box}
+      >
+        {(currentItem < flashcards.length && (
+          <Flashcard {...flashcards[currentItem]} />
+        )) || <Text style={styles.english}> Review Complete! </Text>}
 
-      {isPressed && currentItem < flashcards.length && (
-        <View style={styles.box}>
-          <FlashcardBottom {...flashcards[currentItem]} />
-          <Button
-            title="Bad"
-            onPress={() => {
-              setIsPressed(false);
-              handleNext(false);
-            }}
-            color="#ff0000ff"
-          />
-          <Button
-            title="Good"
-            onPress={() => {
-              setIsPressed(false);
-              handleNext(true);
-            }}
-            color="#029600ff"
-          />
-        </View>
-      )}
-    </Pressable>
+        {isPressed && currentItem < flashcards.length && (
+          <View style={styles.box}>
+            <FlashcardBottom {...flashcards[currentItem]} />
+            <Button
+              title="Bad"
+              onPress={() => {
+                setIsPressed(false);
+                handleNext(false);
+                setRetryCount((prev) => prev + 1);
+              }}
+              color="#ff0000ff"
+            />
+            <Button
+              title="Good"
+              onPress={() => {
+                setIsPressed(false);
+                handleNext(true);
+                setCorrectCount((prev) => prev + 1);
+              }}
+              color="#029600ff"
+            />
+          </View>
+        )}
+      </Pressable>
+
+      {/* Bottom info bar */}
+      <View style={styles.bottomTab}>
+        <Text style={styles.infoText}>
+          Review: {originalListLength - currentItem + retryCount}
+        </Text>
+        {/* <Text style={styles.infoText}>
+          Retry: {list.length - currentItem - originalListLength}
+        </Text> */}
+        <Text style={styles.infoText}>Correct: {correctCount}</Text>
+      </View>
+    </View>
   );
 };
 
@@ -97,6 +112,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "#d9d9d9",
+  },
+  bottomTab: {
+    height: 60,
+    width: "100%",
+    backgroundColor: "#171717",
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderTopColor: "#d9d9d9",
+    flexDirection: "row",
+  },
+  infoText: {
+    fontSize: 16,
+    color: "#d9d9d9",
+    padding: 10,
   },
 });
 
