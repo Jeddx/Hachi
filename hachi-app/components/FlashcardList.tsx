@@ -16,65 +16,58 @@ import SampleStudyList from "./Example/SampleStudyList";
 const FlashcardList = () => {
   const params = useLocalSearchParams<{ id: string }>();
   const [currentItem, setCurrentItem] = useState(0);
+  const list = SampleStudyList.cards;
+  const [flashcards, setFlashcards] = useState(list);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   const id = Number(params.id);
-  const list = SampleStudyList.cards;
+
+  //Will give the next card and add cards you get wrong to the end
+  const handleNext = (correct: boolean) => {
+    if (!correct) {
+      // Add the current flashcard to the end of the queue
+      setFlashcards((prev) => [...prev, prev[currentItem]]);
+    }
+
+    // Move to next flashcard
+    setCurrentItem((prev) => prev + 1);
+    // if (currentItem < flashcards.length - 1) {
+
+    // }
+  };
 
   return (
     <Pressable
       onPress={onPress} //() => setCurrentItem((prev) => (prev + 1) % list.length)
       style={styles.box}
     >
-      <Flashcard {...list[currentItem]} />
-      {isPressed && (
+      {(currentItem < flashcards.length && (
+        <Flashcard {...flashcards[currentItem]} />
+      )) || <Text style={styles.english}> Review Complete! </Text>}
+
+      {isPressed && currentItem < flashcards.length && (
         <View style={styles.box}>
-          <FlashcardBottom {...list[currentItem]} />
+          <FlashcardBottom {...flashcards[currentItem]} />
           <Button
             title="Bad"
-            onPress={() => Alert.alert("Bad")}
+            onPress={() => {
+              setIsPressed(false);
+              handleNext(false);
+            }}
             color="#ff0000ff"
           />
           <Button
             title="Good"
             onPress={() => {
               setIsPressed(false);
-              setCurrentItem((prev) => (prev + 1) % list.length);
+              handleNext(true);
             }}
             color="#029600ff"
           />
         </View>
       )}
-
-      {/* {list.map((card: CardProps) => (
-        <Text key={card.id}>
-          <Flashcard {...card[currentItem]} />
-        </Text>
-      ))} */}
-      {/* <Flashcard japanese={list[0].japanese} english={list[0].english} id={list[0].id} proficiency={0} /> */}
-      {/* <Text>List of Items:</Text>
-      {items.map((item) => (
-        <View key={item.id}>
-          <Text>Name: {item.name}</Text>
-          <Text>Value: {item.value}</Text>
-        </View>
-      ))} */}
     </Pressable>
   );
-  //   if (.length === 0) {
-  //     return (
-  //       <View style={styles.container}>
-  //         <Text>Loading... </Text>
-  //       </View>
-  //     );
-  //   }
-  //   return (
-  //     <Flashcard
-  //       kanji={arrayholder[0].kanji}
-  //       english={arrayholder[0].meanings}
-  //       id={arrayholder[0].id}
-  //     />
-  //   );
 };
 
 const styles = StyleSheet.create({
