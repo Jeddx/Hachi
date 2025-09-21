@@ -12,9 +12,9 @@ import {
   Image,
 } from "react-native";
 import { Link } from "expo-router";
-import { Button } from "react-native-elements";
+import AddCard from "../AddCard";
 
-type KanjiBoxProps = { kanji: Kanji }; //kanji: string; english: string; id: number
+type KanjiBoxProps = { kanji: Kanji };
 
 type Kanji = {
   id: number;
@@ -30,7 +30,6 @@ function getFirstWord(str: string): string {
 }
 
 const VocabBox = ({ kanji }: KanjiBoxProps) => {
-  //kanji, english,
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -50,10 +49,13 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
           <View style={styles.separator} />
         </TouchableOpacity>
       </Link>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => AddCard({ kanjiID: kanji.id, deckID: 1 })}
+      >
         <Image
           style={styles.image}
-          source={require("@/assets/images/honey-bee.jpg")}
+          source={require("@/assets/images/Plus.png")}
         />
       </TouchableOpacity>
     </Pressable>
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
-  image: { resizeMode: "contain", aspectRatio: 1, height: 80, width: 80 },
+  image: { resizeMode: "contain", aspectRatio: 1, height: 40, width: 40 },
 });
 
 export default VocabBox;

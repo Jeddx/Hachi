@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text, View } from "@/components/Themed";
-import SearchBarComponent from "@/components/SearchBarComponent";
 import KanjiData from "@/components/KanjiData";
 import VocabBox from "@/components/Dictionary/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
@@ -32,7 +31,7 @@ export default function TabOneScreen() {
         kunyomi.includes(textData)
       ); // Check if item title includes the search text
     });
-    setData(updatedData.slice(0, 200)); // Update the filtered data
+    setData(updatedData.slice(0, 100)); // Update the filtered data
     setSearchValue(text); // Update the search value
   };
   return (
@@ -59,7 +58,6 @@ export default function TabOneScreen() {
         renderItem={({ item }) => <VocabBox kanji={item} />}
         keyExtractor={(item) => item.kanji}
       />
-      {/* <SearchBarComponent /> */}
       <View
         style={styles.separator}
         lightColor="#eee"
