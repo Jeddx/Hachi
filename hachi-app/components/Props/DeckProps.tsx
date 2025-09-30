@@ -4,8 +4,8 @@ import { CardProps } from "./CardProps";
 export interface DeckProps {
   id: number;
   name: string;
-  cards: CardProps[];
-  learnCount: number;
-  reviewCount: number;
+  //cards: CardProps[];
+  //learnCount: number;
+  //reviewCount: number;
   deckType: string;
 }

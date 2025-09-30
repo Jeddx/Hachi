@@ -12,13 +12,13 @@ function getWords(str: string): string {
   return str.replace(/[\[\]"']/g, "");
 }
 
-const FlashcardBottom = ({ japanese, english, id }: CardProps) => {
+const FlashcardBottom = ({ front, back, card_id }: CardProps) => {
   const [isPressed, setIsPressed] = useState(false);
   return (
     // <Pressable onPress={onPress} style={styles.box}>
     <View style={styles.box}>
       <View style={styles.separator} />
-      <Text style={styles.english}>{getWords(english)}</Text>
+      <Text style={styles.english}>{getWords(back)}</Text>
     </View>
   );
 };

@@ -8,7 +8,7 @@ import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
 
 export default function TabOneScreen() {
   // State to manage the filtered data and search input
-  const [data, setData] = React.useState(KanjiData());
+  const [kanjiData, setKanjiData] = React.useState(KanjiData());
 
   // State to manage the search input value
   const [searchValue, setSearchValue] = React.useState("");
@@ -31,7 +31,7 @@ export default function TabOneScreen() {
         kunyomi.includes(textData)
       ); // Check if item title includes the search text
     });
-    setData(updatedData.slice(0, 100)); // Update the filtered data
+    setKanjiData(updatedData.slice(0, 100)); // Update the filtered data
     setSearchValue(text); // Update the search value
   };
   return (
@@ -53,7 +53,7 @@ export default function TabOneScreen() {
         //style={styles.list}
         numColumns={1}
         scrollEnabled={false}
-        data={data} //KanjiData().slice(0, 200)
+        data={kanjiData}
         contentContainerStyle={{ alignItems: "stretch" }}
         renderItem={({ item }) => <VocabBox kanji={item} />}
         keyExtractor={(item) => item.kanji}

@@ -1,12 +1,21 @@
 import React from "react";
 import Deck from "./Deck";
 import { DeckProps } from "./Props/DeckProps";
+import { getUserData } from "./getUserData";
 import { View } from "./Themed";
 import { StyleSheet, Text } from "react-native";
+import { FlatList } from "react-native";
 import SampleStudyList from "./Example/SampleStudyList";
 
-//Will find all decks and list them their info
-const DeckList = () => {
+//Will find all decks and list their info
+const DeckList = async () => {
+  const userDb = await getUserData();
+  const deckList = await userDb.getAllAsync<{
+    id: number;
+    name: string;
+    deckType: string;
+  }>("SELECT * FROM deck_entries");
+
   return (
     <View style={styles.content}>
       <View style={styles.header}>
@@ -16,8 +25,14 @@ const DeckList = () => {
         <Text style={styles.headingText}></Text>
         {/* <View style={styles.separator} /> */}
       </View>
-
-      <Deck {...SampleStudyList} />
+      {/* <FlatList
+        //numColumns={1}
+        //scrollEnabled={false}
+        data={deckList}
+        //contentContainerStyle={{ alignItems: "stretch" }}
+        renderItem={({ index }) => <Deck {...deckList[index]} />}
+      /> */}
+      {/* <Deck {...deckList[0]} /> */}
     </View>
   );
 };

@@ -18,13 +18,8 @@ const Deck = (deck: DeckProps) => {
   return (
     <View style={styles.content}>
       <Text style={styles.nameText}>{deck.name}</Text>
-      <Text style={styles.learnNumber}>{deck.cards.length}</Text>
-      <Text style={styles.reviewNumber}>{deck.reviewCount}</Text>
-      {/* <Link
-        href={{ pathname: "/Study/StudyScreen" }} //Maybe this needs to be changed to a string? params: { deckName: name }
-        push
-        asChild
-      > */}
+      {/* <Text style={styles.learnNumber}>{deck.cards.length}</Text>
+      <Text style={styles.reviewNumber}>{deck.reviewCount}</Text> */}
       <Link
         href={{ pathname: "/Study/StudyScreen", params: { id: deck.id } }}
         push

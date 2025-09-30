@@ -7,21 +7,33 @@ import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
 import Flashcard from "./Flashcard";
 import FlashcardBottom from "./FlashcardBottom";
 import { CardProps } from "./Props/CardProps";
+import { getUserData } from "./getUserData";
 import { useLocalSearchParams } from "expo-router";
 import SampleStudyList from "./Example/SampleStudyList";
 
 //type FlashcardListProps = {  };
 //Should obtain study list id from url then reference that
 
-const FlashcardList = () => {
+const FlashcardList = async (deckId: number) => {
   const params = useLocalSearchParams<{ id: string }>();
   const [currentItem, setCurrentItem] = useState(0);
-  const list = SampleStudyList.cards;
-  const [flashcards, setFlashcards] = useState(list);
+
+  const userDb = await getUserData();
+  const cardList = await userDb.getAllAsync<{
+    deck_id: number;
+    card_id: number;
+    proficiency: number;
+    front: string;
+    back: string;
+  }>("SELECT card_id, front, back FROM card_entries WHERE deck_id = ?", [
+    deckId,
+  ]);
+
+  const [flashcards, setFlashcards] = useState(cardList);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   const id = Number(params.id);
-  const originalListLength = list.length;
+  const originalListLength = cardList.length;
   const [correctCount, setCorrectCount] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
 

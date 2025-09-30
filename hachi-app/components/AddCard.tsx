@@ -13,28 +13,39 @@ import {
 } from "react-native";
 import { CardProps } from "./Props/CardProps";
 import { DeckProps } from "./Props/DeckProps";
+import { getUserData } from "./getUserData";
 import { KanjiProps } from "./Props/KanjiProps";
 import KanjiData from "./KanjiData";
 import * as SQLite from "expo-sqlite";
 
 type AddCardProps = { kanjiID: number; deckID: number };
 
-const AddCard = ({ kanjiID, deckID }: AddCardProps) => {
-  //Check to make see if Kanji is in Deck with DeckID
+const AddCard = async ({ kanjiID, deckID }: AddCardProps) => {
+  const userDb = await getUserData();
+
+  //Check to see if Kanji is in Deck with DeckID
+
   //If so have a pop up asking if they want to remove it
 
   //Create a default cardProp
-  let newCard: CardProps = {
-    id: 0,
-    proficiency: 0,
-    japanese: "",
-    english: "",
-  };
+  // let newCard: CardProps = {
+  //   card_id: 0,
+  //   proficiency: 0,
+  //   front: "",
+  //   back: "",
+  // };
 
   //Find the Kanji
   //const kanji = KanjiData()[kanjiID];
 
   //Create a flashcard with the Kanji
+  const newCard: CardProps = {
+    deck_id: 1,
+    card_id: 1,
+    proficiency: 1,
+    front: "雨",
+    back: "rain",
+  };
   //   newCard = {
   //     id: kanji.id,
   //     proficiency: 1,
@@ -43,6 +54,18 @@ const AddCard = ({ kanjiID, deckID }: AddCardProps) => {
   //   };
 
   //Add the Flashcard to the deck with the given ID
+  await userDb.runAsync(
+    //Creates A Deck, will change this later to be used with a create deck button
+    "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+    [1, "Sample Deck 2", "anki"]
+  );
+
+  await userDb.runAsync(
+    //Creates A Deck, will change this later to be used with a create deck button
+    "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
+    Object.values(newCard)
+  );
+
   console.log("Added Card to deck");
 
   //   return (

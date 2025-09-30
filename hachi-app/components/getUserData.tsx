@@ -1,11 +1,48 @@
 //Holds data for all decks stored by user
 import * as SQLite from "expo-sqlite";
+import { DeckProps } from "./Props/DeckProps";
 
 //const db: SQLite.WebSQLDatabase = SQLite.openDatabase("flashcards.db");
 //const db = SQLite.openDatabaseAsync("flashcards.db"); //It being async means that other operations can run at the same time
 
-const DeckData = () => {
-  //export const saveCard = (card: CardProps, callback?: () => void) => {
+export const getUserData = async () => {
+  const userDb = await SQLite.openDatabaseAsync("deck.db");
+  //const cardDb = await SQLite.openDatabaseAsync("card.db");
+  await userDb.execAsync(`
+  CREATE TABLE IF NOT EXISTS deck_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    deckType TEXT NOT NULL
+  );
+`); //Maybe make cards and deck part of the same database?
+  await userDb.execAsync(` 
+  CREATE TABLE IF NOT EXISTS card_entries (
+    deck_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    card_id INTEGER,
+    proficiency INTEGER,
+    front TEXT,
+    back TEXT
+  );
+`);
+
+  await userDb.runAsync(
+    //Creates A Deck, will change this later to be used with a create deck button
+    "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+    [1, "Sample Deck 1", "anki"]
+  );
+
+  return userDb;
+  // await deckDb.runAsync(
+  //   "INSERT INTO deck_entries (name, deckType) VALUES (?, ?)",
+  //   ["Sample Deck 2", "anki"]
+  // );
+  // let result = await deckDb.getAllAsync<DeckProps>(
+  //   "SELECT * FROM kanji_entries;"
+  // );
+
+  //return result;
+
+  // export const saveCard = (card: CardProps, callback?: () => void) => {
   // db.transaction((tx) => {
   //   tx.executeSql(
   //     "INSERT INTO cards (deck_id, front, back) VALUES (?, ?, ?);",
@@ -40,4 +77,3 @@ const DeckData = () => {
 //       </Link>
 //     </Pressable>
 //   );
-export default DeckData;

@@ -12,19 +12,19 @@ function getWords(str: string): string {
   return str.replace(/[\[\]"']/g, "");
 }
 
-const Flashcard = ({ japanese, english, id }: CardProps) => {
+const Flashcard = (card: CardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true); //style={styles.box}
   return (
     // <Pressable onPress={onPress}>
     <View>
-      <Text style={styles.kanji}>{japanese}</Text>
+      <Text style={styles.kanji}>{card.front}</Text>
 
       {isPressed && (
         <View>
           <View style={styles.separator} />
-          <Text style={styles.english}>{getWords(english)}</Text>
+          <Text style={styles.english}>{getWords(card.back)}</Text>
           {/* <Button
             title="Bad"
             onPress={() => Alert.alert("Bad")}

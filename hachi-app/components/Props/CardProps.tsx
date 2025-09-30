@@ -1,8 +1,9 @@
 //Lists all the card properties
 
 export interface CardProps {
-  id: number;
+  deck_id: number;
+  card_id: number;
   proficiency: number;
-  japanese: string;
-  english: string;
+  front: string;
+  back: string;
 }

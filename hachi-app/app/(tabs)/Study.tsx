@@ -8,7 +8,7 @@ import DeckList from "@/components/DeckList";
 
 export default function TabTwoScreen() {
   const arrayholder = KanjiData();
-  console.log("All Kanji in array:", arrayholder);
+  //console.log("All Kanji in array:", arrayholder);
 
   if (arrayholder.length === 0) {
     return (
@@ -21,13 +21,14 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Study</Text> */}
       {/* <View style={styles.separator} /> */}
-      <DeckList />
-      {/* <Flashcard
+      {/* <DeckList /> */}
+      <Flashcard
         proficiency={1}
-        japanese={arrayholder[0].kanji}
-        english={arrayholder[0].meanings}
-        id={arrayholder[0].id}
-      /> */}
+        front={arrayholder[0].kanji}
+        back={arrayholder[0].meanings}
+        card_id={arrayholder[0].id}
+        deck_id={1}
+      />
     </View>
   );
 }
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    //justifyContent: "center",
+    justifyContent: "center",
     backgroundColor: "#2a2a2a",
   },
   title: {
