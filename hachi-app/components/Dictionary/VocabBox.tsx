@@ -12,7 +12,8 @@ import {
   Image,
 } from "react-native";
 import { Link } from "expo-router";
-import AddCard from "../AddCard";
+//import AddCard from "../AddCard";
+import useAddCard from "../useAddCards";
 
 type KanjiBoxProps = { kanji: Kanji };
 
@@ -30,6 +31,7 @@ function getFirstWord(str: string): string {
 }
 
 const VocabBox = ({ kanji }: KanjiBoxProps) => {
+  const { addCard } = useAddCard();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -51,7 +53,7 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
       </Link>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => AddCard({ kanjiID: kanji.id, deckID: 1 })}
+        onPress={() => addCard({ kanjiID: kanji.id, deckID: 2 })}
       >
         <Image
           style={styles.image}

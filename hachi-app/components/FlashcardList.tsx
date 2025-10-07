@@ -2,7 +2,6 @@
 Flashcard list will take in a list of cards and display each flashcard one at a time
 */
 
-import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
 import Flashcard from "./Flashcard";
 import FlashcardBottom from "./FlashcardBottom";
@@ -10,30 +9,52 @@ import { CardProps } from "./Props/CardProps";
 import { getUserData } from "./getUserData";
 import { useLocalSearchParams } from "expo-router";
 import SampleStudyList from "./Example/SampleStudyList";
+import { useEffect, useState } from "react";
 
 //type FlashcardListProps = {  };
 //Should obtain study list id from url then reference that
 
-const FlashcardList = async (deckId: number) => {
+const FlashcardList = async () => {
   const params = useLocalSearchParams<{ id: string }>();
+  const deckId = Number(params.id);
+
   const [currentItem, setCurrentItem] = useState(0);
 
-  const userDb = await getUserData();
-  const cardList = await userDb.getAllAsync<{
-    deck_id: number;
-    card_id: number;
-    proficiency: number;
-    front: string;
-    back: string;
-  }>("SELECT card_id, front, back FROM card_entries WHERE deck_id = ?", [
-    deckId,
-  ]);
+  const [cards, setCards] = useState<CardProps[]>([]);
 
-  const [flashcards, setFlashcards] = useState(cardList);
+  useEffect(() => {
+    const load = async () => {
+      const userDb = await getUserData();
+      const cardList = await userDb.getAllAsync<{
+        deck_id: number;
+        card_id: number;
+        proficiency: number;
+        front: string;
+        back: string;
+      }>("SELECT card_id, front, back FROM card_entries WHERE deck_id = ?", [
+        deckId,
+      ]);
+      setCards(cardList);
+    };
+    load();
+  }, []);
+
+  // const userDb = await getUserData();
+  // const cardList = await userDb.getAllAsync<{
+  //   deck_id: number;
+  //   card_id: number;
+  //   proficiency: number;
+  //   front: string;
+  //   back: string;
+  // }>("SELECT card_id, front, back FROM card_entries WHERE deck_id = ?", [
+  //   deckId,
+  // ]);
+
+  //const [flashcards, setFlashcards] = useState(cardList);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
   const id = Number(params.id);
-  const originalListLength = cardList.length;
+  const originalListLength = cards.length;
   const [correctCount, setCorrectCount] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
 
@@ -41,7 +62,7 @@ const FlashcardList = async (deckId: number) => {
   const handleNext = (correct: boolean) => {
     if (!correct) {
       // Add the current flashcard to the end of the queue
-      setFlashcards((prev) => [...prev, prev[currentItem]]);
+      setCards((prev) => [...prev, prev[currentItem]]);
     }
 
     // Move to next flashcard
@@ -54,13 +75,13 @@ const FlashcardList = async (deckId: number) => {
         onPress={onPress} //() => setCurrentItem((prev) => (prev + 1) % list.length)
         style={styles.box}
       >
-        {(currentItem < flashcards.length && (
-          <Flashcard {...flashcards[currentItem]} />
+        {(currentItem < cards.length && (
+          <Flashcard {...cards[currentItem]} />
         )) || <Text style={styles.english}> Review Complete! </Text>}
 
-        {isPressed && currentItem < flashcards.length && (
+        {isPressed && currentItem < cards.length && (
           <View style={styles.box}>
-            <FlashcardBottom {...flashcards[currentItem]} />
+            <FlashcardBottom {...cards[currentItem]} />
             <Button
               title="Bad"
               onPress={() => {

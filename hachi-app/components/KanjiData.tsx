@@ -18,17 +18,17 @@ const KanjiData = (jlpt_level?: number) => {
       "SELECT * FROM kanji_entries;"
     ); //getAllAsync
     result = result.map((item, index) => ({ ...item, id: index }));
-    console.log("Rows:", result);
+    //console.log("Rows:", result);
 
     if (jlpt_level != null) {
       const filteredResult = result.filter(
         (k) => Number(k.jlpt) === jlpt_level
       );
-      console.log("Rows filtered:", filteredResult);
+      //console.log("Rows filtered:", filteredResult);
       setData(filteredResult);
     } else {
       setData(result);
-      console.log("Rows Unfiltered");
+      //console.log("Rows Unfiltered");
     }
 
     try {

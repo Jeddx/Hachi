@@ -5,6 +5,7 @@ It can be clicked to see more details
 
 import React, { useState } from "react";
 import {
+  Platform,
   View,
   Text,
   StyleSheet,
@@ -35,7 +36,7 @@ const KanjiBox = ({ kanji }: KanjiBoxProps) => {
     <Pressable
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
-      style={({ hovered }) => [styles.box, hovered && styles.hovered]}
+      style={({ hovered }) => [styles.box, hovered && styles.hovered]} //Does not work on ios version...
     >
       <Link
         href={{ pathname: "/Kanji/KanjiScreen", params: { id: kanji.id } }} //Maybe this needs to be changed to a string?
@@ -58,11 +59,14 @@ const KanjiBox = ({ kanji }: KanjiBoxProps) => {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: "#212121",
-    padding: 10,
     width: 100,
     height: 120,
     alignItems: "center",
     justifyContent: "center",
+    ...Platform.select({
+      ios: { padding: 5 },
+      default: { padding: 10 },
+    }),
   },
   hovered: {
     backgroundColor: "#171717",

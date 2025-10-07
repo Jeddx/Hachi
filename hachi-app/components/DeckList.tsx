@@ -6,15 +6,31 @@ import { View } from "./Themed";
 import { StyleSheet, Text } from "react-native";
 import { FlatList } from "react-native";
 import SampleStudyList from "./Example/SampleStudyList";
+import { useEffect, useState } from "react";
 
 //Will find all decks and list their info
-const DeckList = async () => {
-  const userDb = await getUserData();
-  const deckList = await userDb.getAllAsync<{
-    id: number;
-    name: string;
-    deckType: string;
-  }>("SELECT * FROM deck_entries");
+const DeckList = () => {
+  const [decks, setDecks] = useState<DeckProps[]>([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const userDb = await getUserData();
+      const deckList = await userDb.getAllAsync<{
+        id: number;
+        name: string;
+        deckType: string;
+      }>("SELECT * FROM deck_entries");
+      setDecks(deckList);
+    };
+    load();
+  }, []);
+  // const userDb = await getUserData();
+
+  // const deckList = await userDb.getAllAsync<{
+  //   id: number;
+  //   name: string;
+  //   deckType: string;
+  // }>("SELECT * FROM deck_entries");
 
   return (
     <View style={styles.content}>
@@ -32,7 +48,7 @@ const DeckList = async () => {
         //contentContainerStyle={{ alignItems: "stretch" }}
         renderItem={({ index }) => <Deck {...deckList[index]} />}
       /> */}
-      {/* <Deck {...deckList[0]} /> */}
+      <Deck {...decks[0]} />
     </View>
   );
 };

@@ -21,14 +21,14 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Study</Text> */}
       {/* <View style={styles.separator} /> */}
-      {/* <DeckList /> */}
-      <Flashcard
+      <DeckList />
+      {/* <Flashcard
         proficiency={1}
         front={arrayholder[0].kanji}
         back={arrayholder[0].meanings}
         card_id={arrayholder[0].id}
         deck_id={1}
-      />
+      /> */}
     </View>
   );
 }

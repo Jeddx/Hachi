@@ -3,7 +3,6 @@ KanjiBox is a component that displays the Kanji and can be hovered over to displ
 It can be clicked to see more details
 */
 
-import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,14 +13,23 @@ import {
 import { CardProps } from "./Props/CardProps";
 import { DeckProps } from "./Props/DeckProps";
 import { getUserData } from "./getUserData";
+import { useEffect, useState } from "react";
 import { KanjiProps } from "./Props/KanjiProps";
 import KanjiData from "./KanjiData";
 import * as SQLite from "expo-sqlite";
 
 type AddCardProps = { kanjiID: number; deckID: number };
 
-const AddCard = async ({ kanjiID, deckID }: AddCardProps) => {
-  const userDb = await getUserData();
+const AddCard = ({ kanjiID, deckID }: AddCardProps) => {
+  //const userDb = await getUserData();
+  const [userDb, setUserDb] = useState<DeckProps[]>([]); //Invalid hook calll
+
+  useEffect(() => {
+    const load = async () => {
+      const db = await getUserData();
+    };
+    load();
+  }, []);
 
   //Check to see if Kanji is in Deck with DeckID
 
@@ -36,7 +44,7 @@ const AddCard = async ({ kanjiID, deckID }: AddCardProps) => {
   // };
 
   //Find the Kanji
-  //const kanji = KanjiData()[kanjiID];
+  const kanji = KanjiData()[kanjiID];
 
   //Create a flashcard with the Kanji
   const newCard: CardProps = {
@@ -54,17 +62,17 @@ const AddCard = async ({ kanjiID, deckID }: AddCardProps) => {
   //   };
 
   //Add the Flashcard to the deck with the given ID
-  await userDb.runAsync(
-    //Creates A Deck, will change this later to be used with a create deck button
-    "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
-    [1, "Sample Deck 2", "anki"]
-  );
+  // await userDb.runAsync(
+  //   //Creates A Deck, will change this later to be used with a create deck button
+  //   "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+  //   [1, "Sample Deck 2", "anki"]
+  // );
 
-  await userDb.runAsync(
-    //Creates A Deck, will change this later to be used with a create deck button
-    "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
-    Object.values(newCard)
-  );
+  // await userDb.runAsync(
+  //   //Creates A Deck, will change this later to be used with a create deck button
+  //   "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
+  //   Object.values(newCard)
+  // );
 
   console.log("Added Card to deck");
 
