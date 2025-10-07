@@ -13,7 +13,7 @@ export default function useAddCard() {
   const [deckDb, setDeckDb] = useState<DeckProps[]>([]);
   const addCard = async ({ kanjiID, deckID }: AddCardProps) => {
     //setCards([...cards, { kanjiID, deckID }]);
-    //const kanji = KanjiData()[kanjiID];
+    //const kanji = KanjiData()[kanjiID]; TODO Need to refactor kanjiData to be a custom hook
     const userDb = await getUserData();
     console.log("userDb value:", userDb);
     console.log("userDb type:", typeof userDb);
