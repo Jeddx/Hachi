@@ -59,14 +59,36 @@ export default function useAddCard() {
       back: kanji.meanings,
     };
 
-    try {
-      const result = await userDb.runAsync(
-        "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
-        [card.deck_id, card.card_id, card.proficiency, card.front, card.back]
-      );
-      console.log("✅ Card inserted:", result.lastInsertRowId, result.changes);
-    } catch (err) {
-      console.error("❌ SQLite insert failed:", (err as Error).message);
+    //Limit 1 stops after 1 match, Select 1 doesn't fetch unnecessary columns
+    const kanjiOfCardId = await userDb.getAllAsync(
+      "SELECT 1 FROM card_entries WHERE card_id = ? LIMIT 1",
+      [card.card_id]
+    );
+
+    if (kanjiOfCardId.length <= 0) {
+      try {
+        const result = await userDb.runAsync(
+          "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
+          [card.deck_id, card.card_id, card.proficiency, card.front, card.back]
+        );
+        console.log(
+          "✅ Card inserted:",
+          result.lastInsertRowId,
+          result.changes
+        );
+      } catch (err) {
+        console.error("❌ SQLite insert failed:", (err as Error).message);
+      }
+    } else {
+      try {
+        const result = await userDb.runAsync(
+          "DELETE FROM card_entries WHERE deck_id = ? AND card_id = ?",
+          [card.deck_id, card.card_id]
+        );
+        console.log("✅ Card deleted:", result.lastInsertRowId, result.changes);
+      } catch (err) {
+        console.error("❌ SQLite delete failed:", (err as Error).message);
+      }
     }
 
     //Add the Flashcard to the deck with the given ID
