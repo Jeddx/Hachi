@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
+import { CreateDeckButton } from "@/components/CreateDeckButton";
 import { Text, View } from "@/components/Themed";
 import ExampleFlatList from "@/components/ExampleFlatlist";
 import Flashcard from "@/components/Flashcard";
@@ -16,11 +17,29 @@ export default function TabTwoScreen() {
         <Text>Loading... </Text>
       </View>
     );
-  }
+  } //onPress={onPressFunction}
   return (
     <View style={styles.container}>
       {/* <Text style={styles.title}>Study</Text> */}
       {/* <View style={styles.separator} /> */}
+      {/* <Pressable
+        onPress={() => {
+          await userDb.runAsync(
+            //Creates A Deck, will change this later to be used with a create deck button
+            "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+            [1, "Sample Deck 1", "anki"]
+          );
+        }}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? "#3025ccff" : "#4032ffff",
+          },
+          styles.wrapperCustom,
+        ]}
+      >
+        <Text>Create Deck</Text>
+      </Pressable> */}
+      <CreateDeckButton />
       <DeckList />
       {/* <Flashcard
         proficiency={1}
@@ -43,6 +62,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#4032ffff",
+  },
+  wrapperCustom: {
+    borderRadius: 8,
+    padding: 6,
   },
   separator: {
     marginBottom: 5,

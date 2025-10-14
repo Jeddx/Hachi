@@ -23,6 +23,7 @@ const DeckList = () => {
       setDecks(deckList);
     };
     load();
+    console.log("Successfully obtained user data");
   }, []);
   // const userDb = await getUserData();
 

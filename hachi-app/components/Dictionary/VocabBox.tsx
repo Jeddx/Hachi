@@ -53,7 +53,7 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
       </Link>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addCard({ kanjiID: kanji.id, deckID: 2 })}
+        onPress={() => addCard({ kanjiChar: kanji.kanji, deckID: 2 })}
       >
         <Image
           style={styles.image}

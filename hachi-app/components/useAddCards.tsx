@@ -2,19 +2,40 @@
 
 import { useState, useEffect } from "react";
 import { DeckProps } from "./Props/DeckProps";
-import KanjiData from "./KanjiData";
+import { KanjiProps } from "./Props/KanjiProps";
 import { getUserData } from "./getUserData";
 import { CardProps } from "./Props/CardProps";
+import { getKanjiData } from "./useKanjiData";
+import * as SQLite from "expo-sqlite";
 
-type AddCardProps = { kanjiID: number; deckID: number };
+type AddCardProps = { kanjiChar: string; deckID: number }; //kanjiID: number;
 
 export default function useAddCard() {
-  //const [cards, setCards] = useState<DeckProps[]>([]); //useState([])
-  const [deckDb, setDeckDb] = useState<DeckProps[]>([]);
-  const addCard = async ({ kanjiID, deckID }: AddCardProps) => {
-    //setCards([...cards, { kanjiID, deckID }]);
-    //const kanji = KanjiData()[kanjiID]; TODO Need to refactor kanjiData to be a custom hook
+  const appDb = SQLite.useSQLiteContext();
+  const addCard = async ({ kanjiChar, deckID }: AddCardProps) => {
     const userDb = await getUserData();
+    //setCards([...cards, { kanjiID, deckID }]);
+    //const kanjiDb = await getKanjiData();
+    //const kanji = kanjiDb[kanjiID];
+
+    // try {
+    //   const kanji = await appDb.getFirstAsync(
+    //     "SELECT * FROM kanji_entries WHERE kanji = ?",
+    //     [kanjiChar]
+    //   );
+    //   console.log("Kanji Found: ", kanji);
+    //   // Your code to handle the kanji object
+    // } catch (error) {
+    //   console.error("Failed to fetch kanji entry:", error);
+    // }
+    const kanji = (await appDb.getFirstAsync(
+      "SELECT * FROM kanji_entries WHERE kanji = ?",
+      [kanjiChar]
+    )) as KanjiProps;
+    //let kanjiPropType: KanjiProps = kanji as KanjiProps;
+
+    console.log("Kanji Found: ", kanji);
+
     console.log("userDb value:", userDb);
     console.log("userDb type:", typeof userDb);
     console.log(
@@ -34,8 +55,8 @@ export default function useAddCard() {
       deck_id: 1,
       card_id: 1,
       proficiency: 1,
-      front: "雨",
-      back: "rain",
+      front: kanji.kanji,
+      back: kanji.meanings,
     };
 
     try {
