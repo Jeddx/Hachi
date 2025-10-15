@@ -15,6 +15,7 @@ import { Link } from "expo-router";
 //import AddCard from "../AddCard";
 import useAddCard from "../hooks/useAddCards";
 import { useSQLiteContext } from "expo-sqlite";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 type KanjiBoxProps = { kanji: Kanji };
 
@@ -37,27 +38,30 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
   const appDb = useSQLiteContext();
 
   return (
-    <Pressable
-      onHoverIn={() => setIsHovered(true)}
-      onHoverOut={() => setIsHovered(false)}
-      style={({ hovered }) => [styles.box, hovered && styles.hovered]}
-    >
-      <Link
-        href={{ pathname: "/Kanji/KanjiScreen", params: { id: kanji.id } }} //Maybe this needs to be changed to a string?
-        push
-        asChild
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}
       >
-        <TouchableOpacity style={styles.mainArea}>
-          <Text style={styles.kanji}>{kanji.kanji}</Text>
-          <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
-          <View style={styles.separator} />
-        </TouchableOpacity>
-      </Link>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => addCard({ kanjiChar: kanji.kanji, deckID: 2 })}
-      >
-        {/* <Image //Have a parent component that figures out if Kanji exists in a deck or not
+        <Pressable
+          onHoverIn={() => setIsHovered(true)}
+          onHoverOut={() => setIsHovered(false)}
+          style={({ hovered }) => [styles.box, hovered && styles.hovered]}
+        >
+          <Link
+            href={{ pathname: "/Kanji/KanjiScreen", params: { id: kanji.id } }} //Maybe this needs to be changed to a string?
+            push
+            asChild
+          >
+            <TouchableOpacity style={styles.mainArea}>
+              <Text style={styles.kanji}>{kanji.kanji}</Text>
+              <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
+            </TouchableOpacity>
+          </Link>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => addCard({ kanjiChar: kanji.kanji, deckID: 2 })}
+          >
+            {/* <Image //Have a parent component that figures out if Kanji exists in a deck or not
           style={styles.image}
           source={
             isAdded 
@@ -65,12 +69,15 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
               : require("@/assets/images/Plus.png") // when false
           }
         /> */}
-        <Image
-          style={styles.image}
-          source={require("@/assets/images/Plus.png")}
-        />
-      </TouchableOpacity>
-    </Pressable>
+            <Image
+              style={styles.image}
+              source={require("@/assets/images/Plus.png")}
+            />
+          </TouchableOpacity>
+          {/* <View style={styles.separator} /> */}
+        </Pressable>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 5,
     height: 1,
-    //width: "95%",
+    width: "95%",
     //justifyContent: "center",
     backgroundColor: "#212121",
   },
@@ -114,7 +121,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
-  image: { resizeMode: "contain", aspectRatio: 1, height: 40, width: 40 },
+  image: {
+    //resizeMode: "contain",
+    aspectRatio: 1,
+    height: 40,
+    width: 40,
+    alignSelf: "flex-end",
+  },
 });
 
 export default VocabBox;

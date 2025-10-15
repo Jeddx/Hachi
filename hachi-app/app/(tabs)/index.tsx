@@ -4,6 +4,7 @@ import { Text, View } from "@/src/Themed";
 import KanjiData from "@/src/services/KanjiData";
 import VocabBox from "@/src/components/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 //Changing this from the ios one makes it go bonkers so cant remove cancel button
 
 export default function TabOneScreen() {
@@ -35,39 +36,41 @@ export default function TabOneScreen() {
     setSearchValue(text); // Update the search value
   };
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
-      {/* <Text style={styles.title}>Dictionary</Text> */}
-      <SearchBar
-        platform="default"
-        placeholder="Search"
-        style={styles.input}
-        onChangeText={searchFunction}
-        value={searchValue}
-        autoCorrect={false}
-        showCancel={false}
-      />
-      <FlatList
-        //style={styles.list}
-        numColumns={1}
-        scrollEnabled={false}
-        data={kanjiData}
-        contentContainerStyle={{ alignItems: "stretch" }}
-        renderItem={({ item }) => <VocabBox kanji={item} />}
-        keyExtractor={(item) => item.kanji}
-      />
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      {/* <FlatList
+    <SafeAreaProvider>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        {/* <Text style={styles.title}>Dictionary</Text> */}
+        <SearchBar
+          platform="default"
+          placeholder="Search"
+          style={styles.input}
+          onChangeText={searchFunction}
+          value={searchValue}
+          autoCorrect={false}
+          showCancel={false}
+        />
+        <FlatList
+          //style={styles.list}
+          numColumns={1}
+          scrollEnabled={false}
+          data={kanjiData}
+          contentContainerStyle={{ alignItems: "stretch" }}
+          renderItem={({ item }) => <VocabBox kanji={item} />}
+          keyExtractor={(item) => item.kanji}
+        />
+        <View
+          style={styles.separator}
+          lightColor="#eee"
+          darkColor="rgba(255,255,255,0.1)"
+        />
+        {/* <FlatList
         data={DATA}
         renderItem={({ item }) => <SearchResult {...item}></SearchResult>}
       /> */}
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 }
 
