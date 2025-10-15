@@ -2,7 +2,7 @@
 
 import { View } from "react-native";
 //import KanjiDetails from "@/components/KanjiDetails";
-import FlashcardList from "@/components/FlashcardList";
+import FlashcardList from "@/src/components/FlashcardList";
 import { StyleSheet } from "react-native";
 
 export default function StudyScreen() {

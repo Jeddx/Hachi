@@ -1,9 +1,9 @@
 //The KanjiScreen is the screen where Kanji details are displayed based on which Kanji was clicked
 
-import { Text } from "@/components/Themed";
+import { Text } from "@/src/Themed";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
-import KanjiDetails from "@/components/KanjiDetails";
+import KanjiDetails from "@/src/components/KanjiDetails";
 import { StyleSheet } from "react-native";
 
 export default function KanjiScreen() {

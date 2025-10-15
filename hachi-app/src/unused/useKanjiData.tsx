@@ -5,7 +5,7 @@ The KanjiData component reads the kanji database and stores its information in a
 import * as SQLite from "expo-sqlite";
 import { useCallback, useState, useEffect } from "react";
 import { useFocusEffect } from "expo-router";
-import { KanjiProps } from "./Props/KanjiProps";
+import { KanjiProps } from "../types/KanjiProps";
 
 export const getKanjiData = async () => {
   //const [kanjiData, setData] = useState<KanjiProps[]>([]);

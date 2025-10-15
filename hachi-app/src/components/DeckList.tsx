@@ -1,11 +1,11 @@
+//Takes in all user decks and displays them
+
 import React from "react";
 import Deck from "./Deck";
-import { DeckProps } from "./Props/DeckProps";
-import { getUserData } from "./getUserData";
-import { View } from "./Themed";
+import { DeckProps } from "../types/DeckProps";
+import { getUserData } from "../services/getUserData";
+import { View } from "../Themed";
 import { StyleSheet, Text } from "react-native";
-import { FlatList } from "react-native";
-import SampleStudyList from "./Example/SampleStudyList";
 import { useEffect, useState } from "react";
 
 //Will find all decks and list their info

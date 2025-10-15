@@ -13,7 +13,8 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 //import AddCard from "../AddCard";
-import useAddCard from "../useAddCards";
+import useAddCard from "../hooks/useAddCards";
+import { useSQLiteContext } from "expo-sqlite";
 
 type KanjiBoxProps = { kanji: Kanji };
 
@@ -33,6 +34,7 @@ function getFirstWord(str: string): string {
 const VocabBox = ({ kanji }: KanjiBoxProps) => {
   const { addCard } = useAddCard();
   const [isHovered, setIsHovered] = useState(false);
+  const appDb = useSQLiteContext();
 
   return (
     <Pressable
@@ -55,6 +57,14 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
         style={styles.button}
         onPress={() => addCard({ kanjiChar: kanji.kanji, deckID: 2 })}
       >
+        {/* <Image //Have a parent component that figures out if Kanji exists in a deck or not
+          style={styles.image}
+          source={
+            isAdded 
+              ? require("@/assets/images/Check.png") // when true
+              : require("@/assets/images/Plus.png") // when false
+          }
+        /> */}
         <Image
           style={styles.image}
           source={require("@/assets/images/Plus.png")}

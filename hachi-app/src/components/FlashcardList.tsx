@@ -2,13 +2,20 @@
 Flashcard list will take in a list of cards and display each flashcard one at a time
 */
 
-import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Pressable,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import Flashcard from "./Flashcard";
 import FlashcardBottom from "./FlashcardBottom";
-import { CardProps } from "./Props/CardProps";
-import { getUserData } from "./getUserData";
+import { CardProps } from "../types/CardProps";
+import { getUserData } from "../services/getUserData";
 import { useLocalSearchParams } from "expo-router";
-import SampleStudyList from "./Example/SampleStudyList";
 import { useEffect, useState } from "react";
 
 //type FlashcardListProps = {  };
@@ -53,7 +60,7 @@ const FlashcardList = async () => {
   //const [flashcards, setFlashcards] = useState(cardList);
   const [isPressed, setIsPressed] = useState(false);
   const onPress = () => setIsPressed(true);
-  const id = Number(params.id);
+  //const id = Number(params.id);
   const originalListLength = cards.length;
   const [correctCount, setCorrectCount] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
@@ -82,12 +89,33 @@ const FlashcardList = async () => {
         {isPressed && currentItem < cards.length && (
           <View style={styles.box}>
             <FlashcardBottom {...cards[currentItem]} />
-            <Button
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.redButton}
+                onPress={() => {
+                  setIsPressed(false);
+                  handleNext(false);
+                }}
+              >
+                <Text style={styles.infoText}>BAD</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.greenButton}
+                onPress={() => {
+                  setIsPressed(false);
+                  handleNext(true);
+                  setCorrectCount((prev) => prev + 1);
+                }}
+              >
+                <Text style={styles.infoText}>GOOD</Text>
+              </TouchableOpacity>
+            </View>
+            {/* <Button
               title="Bad"
               onPress={() => {
                 setIsPressed(false);
                 handleNext(false);
-                setRetryCount((prev) => prev + 1);
+                //setRetryCount((prev) => prev + 1);
               }}
               color="#ff0000ff"
             />
@@ -99,7 +127,7 @@ const FlashcardList = async () => {
                 setCorrectCount((prev) => prev + 1);
               }}
               color="#029600ff"
-            />
+            /> */}
           </View>
         )}
       </Pressable>
@@ -125,6 +153,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  redButton: {
+    backgroundColor: "#ff0000ff",
+    width: "35%",
+    borderRadius: 5,
+    marginHorizontal: 20,
+  },
+  greenButton: {
+    backgroundColor: "#029600ff",
+    width: "35%",
+    borderRadius: 5,
+    marginHorizontal: 20,
   },
   hovered: {
     backgroundColor: "#171717",
@@ -158,6 +202,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 16,
+    textAlign: "center",
     color: "#d9d9d9",
     padding: 10,
   },

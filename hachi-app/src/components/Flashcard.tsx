@@ -4,7 +4,7 @@ Flashcard is a layout for how a (anki style) flashcard should look when studying
 
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Alert } from "react-native";
-import { CardProps } from "./Props/CardProps";
+import { CardProps } from "../types/CardProps";
 
 //type FlashcardProps = { kanji: string; english: string; id: number };
 

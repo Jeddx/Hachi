@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
-import { Text, View } from "@/components/Themed";
-import KanjiData from "@/components/KanjiData";
-import VocabBox from "@/components/Dictionary/VocabBox";
+import { Text, View } from "@/src/Themed";
+import KanjiData from "@/src/services/KanjiData";
+import VocabBox from "@/src/components/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
 //Changing this from the ios one makes it go bonkers so cant remove cancel button
 

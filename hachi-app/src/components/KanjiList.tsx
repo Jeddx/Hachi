@@ -4,7 +4,7 @@ import React from "react";
 import { Platform, View, FlatList, StyleSheet, Text } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import KanjiBox from "./KanjiBox";
-import KanjiData from "./KanjiData";
+import KanjiData from "../services/KanjiData";
 
 type KanjiListProps = { jlpt_level: number };
 

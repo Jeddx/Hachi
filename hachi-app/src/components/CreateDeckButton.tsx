@@ -1,17 +1,18 @@
 import { StyleSheet, Pressable, Text } from "react-native";
-import { getUserData } from "./getUserData";
+import { getUserData } from "../services/getUserData";
+import { useSQLiteContext } from "expo-sqlite";
 
 export const CreateDeckButton = async () => {
-  //const userDb = await getUserData();
+  const appDb = useSQLiteContext();
 
   return (
     <Pressable
       onPress={() => {
-        // userDb.runAsync(
-        //   //Creates A Deck, will change this later to be used with a create deck button
-        //   "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
-        //   [1, "Sample Deck 1", "anki"]
-        // );
+        appDb.runAsync(
+          //Creates A Deck, will change this later to be used with a create deck button
+          "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+          [2, "Sample Deck 2", "anki"]
+        );
       }}
       style={({ pressed }) => [
         {

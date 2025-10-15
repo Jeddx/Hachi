@@ -1,6 +1,6 @@
 //Creates data for user if not done so already
 import * as SQLite from "expo-sqlite";
-import { DeckProps } from "./Props/DeckProps";
+import { DeckProps } from "../types/DeckProps";
 import * as FileSystem from "expo-file-system";
 
 //const db: SQLite.WebSQLDatabase = SQLite.openDatabase("flashcards.db");

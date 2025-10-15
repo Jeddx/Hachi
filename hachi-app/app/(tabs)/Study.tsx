@@ -1,11 +1,10 @@
 import { StyleSheet, Pressable } from "react-native";
-import { CreateDeckButton } from "@/components/CreateDeckButton";
-import { Text, View } from "@/components/Themed";
-import ExampleFlatList from "@/components/ExampleFlatlist";
-import Flashcard from "@/components/Flashcard";
-import KanjiData from "@/components/KanjiData";
+import { CreateDeckButton } from "@/src/components/CreateDeckButton";
+import { Text, View } from "@/src/Themed";
+import Flashcard from "@/src/components/Flashcard";
+import KanjiData from "@/src/services/KanjiData";
 import React from "react";
-import DeckList from "@/components/DeckList";
+import DeckList from "@/src/components/DeckList";
 
 export default function TabTwoScreen() {
   const arrayholder = KanjiData();

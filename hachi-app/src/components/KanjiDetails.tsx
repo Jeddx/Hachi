@@ -1,9 +1,9 @@
 //KanjiDetails is used on the Kanji Screen to display the current Kanjis information
 
-import { Text } from "@/components/Themed";
+import { Text } from "@/src/Themed";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
-import KanjiData from "@/components/KanjiData";
+import KanjiData from "@/src/services/KanjiData";
 import { StyleSheet } from "react-native";
 
 function simplifyStr(str: string): string {

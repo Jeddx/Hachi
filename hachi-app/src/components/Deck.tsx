@@ -5,8 +5,7 @@ Deck will display info on the Decks page and will transfer the study list to the
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import { Link } from "expo-router";
-//import { CardProps } from "./Props/CardProps";
-import { DeckProps } from "./Props/DeckProps";
+import { DeckProps } from "../types/DeckProps";
 
 //type DeckProps = { name: string; learn: number; review: number };
 

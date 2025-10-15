@@ -1,11 +1,11 @@
 //Custom hook that successfully adds the same kanji to a deck
 
 import { useState, useEffect } from "react";
-import { DeckProps } from "./Props/DeckProps";
-import { KanjiProps } from "./Props/KanjiProps";
-import { getUserData } from "./getUserData";
-import { CardProps } from "./Props/CardProps";
-import { getKanjiData } from "./useKanjiData";
+import { DeckProps } from "../types/DeckProps";
+import { KanjiProps } from "../types/KanjiProps";
+import { getUserData } from "../services/getUserData";
+import { CardProps } from "../types/CardProps";
+import { getKanjiData } from "../unused/useKanjiData";
 import * as SQLite from "expo-sqlite";
 
 type AddCardProps = { kanjiChar: string; deckID: number }; //kanjiID: number;
@@ -60,11 +60,13 @@ export default function useAddCard() {
     };
 
     //Limit 1 stops after 1 match, Select 1 doesn't fetch unnecessary columns
+    //Switch to look for card id later
     const kanjiOfCardId = await userDb.getAllAsync(
-      "SELECT 1 FROM card_entries WHERE card_id = ? LIMIT 1",
-      [card.card_id]
+      "SELECT 1 FROM card_entries WHERE front = ? LIMIT 1",
+      [card.front]
     );
 
+    //If Kanji of card id already exists in deck then remove instead of adding
     if (kanjiOfCardId.length <= 0) {
       try {
         const result = await userDb.runAsync(

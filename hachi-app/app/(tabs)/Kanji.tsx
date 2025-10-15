@@ -6,8 +6,8 @@ The Kanji boxes will be difference colors depending on user proficiency
 */
 
 import { StyleSheet, ScrollView } from "react-native";
-import { Text, View } from "@/components/Themed";
-import KanjiList from "@/components/KanjiList";
+import { Text, View } from "@/src/Themed";
+import KanjiList from "@/src/components/KanjiList";
 
 export default function KanjiScreen() {
   // const createDbIfNeeded = async (db: SQLite.SQLiteDatabase) => {

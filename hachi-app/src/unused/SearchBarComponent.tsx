@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
-import KanjiData from "./KanjiData";
-import VocabBox from "./Dictionary/VocabBox";
+import KanjiData from "../services/KanjiData";
+import VocabBox from "../components/VocabBox";
 
 export default function SearchBarComponent() {
   // State to manage the filtered data and search input
