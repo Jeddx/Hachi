@@ -5,21 +5,22 @@ import Deck from "./Deck";
 import { DeckProps } from "../types/DeckProps";
 import { getUserData } from "../services/getUserData";
 import { View } from "../Themed";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
 //Will find all decks and list their info
 const DeckList = () => {
   const [decks, setDecks] = useState<DeckProps[]>([]);
+  const appDb = useSQLiteContext();
 
   useEffect(() => {
     const load = async () => {
-      const userDb = await getUserData();
-      const deckList = await userDb.getAllAsync<{
+      const deckList = await appDb.getAllAsync<{
         id: number;
         name: string;
         deckType: string;
-      }>("SELECT * FROM deck_entries");
+      }>("SELECT * FROM decks");
       setDecks(deckList);
     };
     load();
@@ -32,6 +33,10 @@ const DeckList = () => {
   //   name: string;
   //   deckType: string;
   // }>("SELECT * FROM deck_entries");
+  const handleDelete = (id: number) => {
+    //Run when onDelete is called
+    setDecks((prev) => prev.filter((deck) => deck.id !== id));
+  };
 
   return (
     <View style={styles.content}>
@@ -49,7 +54,19 @@ const DeckList = () => {
         //contentContainerStyle={{ alignItems: "stretch" }}
         renderItem={({ index }) => <Deck {...deckList[index]} />}
       /> */}
-      <Deck {...decks[0]} />
+      <FlatList
+        style={styles.list}
+        //numColumns={Platform.OS === "ios" ? 5 : 12}
+        scrollEnabled={false}
+        data={decks}
+        contentContainerStyle={{
+          alignItems: "stretch",
+          justifyContent: "space-between",
+        }}
+        renderItem={({ item }) => <Deck {...item} onDelete={handleDelete} />}
+        keyExtractor={(item) => item.id.toString()}
+      />
+      {/* <Deck {...decks[0]} /> */}
     </View>
   );
 };
@@ -62,6 +79,10 @@ const styles = StyleSheet.create({
     padding: 10,
     //height: "100%",
     //flexDirection: "row",
+  },
+  list: {
+    //flex: 1,
+    //justifyContent: "space-between",
   },
   header: {
     backgroundColor: "#212121", //"#212121"

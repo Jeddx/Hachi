@@ -8,4 +8,5 @@ export interface DeckProps {
   //learnCount: number;
   //reviewCount: number;
   deckType: string;
+  onDelete?: (id: number) => void; //? makes it optional, not necessary to provide; (id: number) => void, takes parameter id, returns void
 }
