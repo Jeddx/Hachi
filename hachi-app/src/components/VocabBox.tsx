@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Pressable,
   Image,
+  Platform,
 } from "react-native";
 import { Link } from "expo-router";
 //import AddCard from "../AddCard";
@@ -39,13 +40,16 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}
-      >
+      <SafeAreaView>
+        <View style={styles.separator} />
         <Pressable
           onHoverIn={() => setIsHovered(true)}
           onHoverOut={() => setIsHovered(false)}
-          style={({ hovered }) => [styles.box, hovered && styles.hovered]}
+          style={
+            Platform.OS === "web"
+              ? ({ hovered }) => [styles.box, hovered && styles.hovered]
+              : styles.box
+          }
         >
           <Link
             href={{ pathname: "/Kanji/KanjiScreen", params: { id: kanji.id } }} //Maybe this needs to be changed to a string?
@@ -53,7 +57,13 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
             asChild
           >
             <TouchableOpacity style={styles.mainArea}>
-              <Text style={styles.kanji}>{kanji.kanji}</Text>
+              <Text
+                style={
+                  Platform.OS === "web" ? styles.kanji : styles.kanjiMobile
+                }
+              >
+                {kanji.kanji}
+              </Text>
               <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
             </TouchableOpacity>
           </Link>
@@ -70,11 +80,10 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
           }
         /> */}
             <Image
-              style={styles.image}
+              style={Platform.OS === "web" ? styles.image : styles.imageMobile}
               source={require("@/assets/images/Plus.png")}
             />
           </TouchableOpacity>
-          {/* <View style={styles.separator} /> */}
         </Pressable>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -86,6 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2a2a2a", //
     alignItems: "center",
     paddingHorizontal: 10,
+    paddingVertical: 5,
     width: "100%",
     maxHeight: 100,
     flexDirection: "row",
@@ -97,23 +107,28 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "#d9d9d9", //FFD972 //d8dc6c //d9d9d9
   },
+  kanjiMobile: {
+    fontSize: 24,
+    color: "#d9d9d9", //FFD972 //d8dc6c //d9d9d9
+  },
   english: {
     fontSize: 12,
     color: "#d9d9d9",
   },
   separator: {
-    marginVertical: 5,
+    //marginVertical: 5,
     height: 1,
-    width: "95%",
+    //width: "95%",
     //justifyContent: "center",
     backgroundColor: "#212121",
   },
   button: {
-    padding: 20,
+    //padding: 20,
+    paddingRight: 10,
     //margin: 5,
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
+    //height: "100%",
     //backgroundColor: "#25aa00ff",
   },
   mainArea: {
@@ -127,6 +142,12 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     alignSelf: "flex-end",
+  },
+  imageMobile: {
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
+    alignSelf: "center",
   },
 });
 

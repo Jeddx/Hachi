@@ -6,6 +6,7 @@ import {
   Alert,
   View,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { getUserData } from "../services/getUserData";
 import { useSQLiteContext } from "expo-sqlite";
@@ -40,50 +41,53 @@ export const CreateDeckButton = () => {
                 value={deckTitle}
                 placeholder="Insert Deck Name"
               />
-              <Pressable
-                style={[styles.baseButton, { backgroundColor: "green" }]}
-                onPress={async () => {
-                  setModalVisible(!modalVisible);
-                  //await appDb.execAsync("DROP TABLE IF EXISTS deck_entries;"); deletes deck_entries table
-                  appDb.execAsync(`
+              <View style={styles.rowView}>
+                <TouchableOpacity
+                  style={[styles.baseButton, { backgroundColor: "green" }]}
+                  onPress={async () => {
+                    setModalVisible(!modalVisible);
+                    //await appDb.execAsync("DROP TABLE IF EXISTS deck_entries;"); deletes deck_entries table
+                    appDb.execAsync(`
                     CREATE TABLE IF NOT EXISTS decks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     deckType TEXT NOT NULL
                     );
                   `);
-                  await appDb.runAsync(
-                    //Creates A Deck, will change this later to be used with a create deck button
-                    "INSERT INTO decks (name, deckType) VALUES (?, ?)",
-                    [deckTitle, "anki"]
-                  );
-                  console.log("Added Sample Deck");
-                }}
-              >
-                <Text>Create</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.baseButton, { backgroundColor: "red" }]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text>Close</Text>
-              </Pressable>
+                    await appDb.runAsync(
+                      //Creates A Deck, will change this later to be used with a create deck button
+                      "INSERT INTO decks (name, deckType) VALUES (?, ?)",
+                      [deckTitle, "anki"]
+                    );
+                    console.log("Added Sample Deck");
+                  }}
+                >
+                  <Text style={styles.infoText}>Create</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.baseButton, { backgroundColor: "red" }]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.infoText}>Close</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>
-        <Pressable
+        <TouchableOpacity
           onPress={() => {
             setModalVisible(!modalVisible);
           }}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#3025ccff" : "#4032ffff",
-            },
-            styles.baseButton,
-          ]}
+          style={[styles.baseButton, { backgroundColor: "#3025ccff" }]}
+          // style={({ pressed }) => [
+          //   {
+          //     backgroundColor: pressed ? "#3025ccff" : "#4032ffff",
+          //   },
+          //   styles.baseButton,
+          // ]}
         >
-          <Text>Create Deck</Text>
-        </Pressable>
+          <Text style={styles.infoText}>Create Deck</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -92,7 +96,11 @@ export const CreateDeckButton = () => {
 const styles = StyleSheet.create({
   baseButton: {
     borderRadius: 8,
-    padding: 6,
+    padding: 10,
+    margin: 4,
+  },
+  rowView: {
+    flexDirection: "row",
   },
   centeredView: {
     flex: 1,
@@ -122,5 +130,10 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  infoText: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#d9d9d9",
   },
 });
