@@ -72,16 +72,24 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
             asChild
           >
             <TouchableOpacity style={styles.mainArea}>
-              <Text
-                style={
-                  Platform.OS === "web" ? styles.kanji : styles.kanjiMobile
-                }
-              >
-                {kanji.kanji}
-              </Text>
-              <Text style={styles.english}>{getFirstWord(kanji.meanings)}</Text>
+              <View style={styles.row}>
+                <View>
+                  <Text
+                    style={
+                      Platform.OS === "web" ? styles.kanji : styles.kanjiMobile
+                    }
+                  >
+                    {kanji.kanji}
+                  </Text>
+                  <Text style={styles.english}>
+                    {getFirstWord(kanji.meanings)}
+                  </Text>
+                </View>
+                <Text style={styles.category}>Kanji</Text>
+              </View>
             </TouchableOpacity>
           </Link>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() =>
@@ -96,6 +104,7 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
               : require("@/assets/images/Plus.png") // when false
           }
         /> */}
+
             <Image
               style={Platform.OS === "web" ? styles.image : styles.imageMobile}
               source={require("@/assets/images/Plus.png")}
@@ -116,6 +125,17 @@ const styles = StyleSheet.create({
     width: "100%",
     maxHeight: 100,
     flexDirection: "row",
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  category: {
+    backgroundColor: "yellow",
+    padding: 8,
+    borderRadius: 5,
+    marginHorizontal: 20,
   },
   hovered: {
     backgroundColor: "#212121",
@@ -150,8 +170,6 @@ const styles = StyleSheet.create({
   },
   mainArea: {
     flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
   },
   image: {
     //resizeMode: "contain",
