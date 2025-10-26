@@ -7,6 +7,7 @@ import { View, Text, StyleSheet, Button, Alert, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { DeckProps } from "../types/DeckProps";
 import { useSQLiteContext } from "expo-sqlite";
+import RenameDeckPopup from "./RenameDeckPopup";
 
 //type DeckProps = { name: string; learn: number; review: number };
 
@@ -16,16 +17,11 @@ const Deck = (deck: DeckProps) => {
   const [isPressed, setIsPressed] = useState(false);
   //const [deletedDeck, setDeletedDeck] = useState(false);
   const appDb = useSQLiteContext();
-  const onPress = () => setIsPressed(true);
+  const [showRename, setShowRename] = useState(false);
+  //const onPress = () => setIsPressed(true);
   return (
     <View style={styles.content}>
       <Text style={styles.nameText}>{deck.name}</Text>
-      {/* <Text style={styles.learnNumber}>{deck.cards.length}</Text>
-      <Text style={styles.reviewNumber}>{deck.reviewCount}</Text> */}
-      {/* <Button
-        title="Study"
-        onPress={() => Alert.alert("Simple Button pressed")}
-      /> */}
       <Link
         href={{ pathname: "/Study/StudyScreen", params: { id: deck.id } }}
         push
@@ -41,7 +37,7 @@ const Deck = (deck: DeckProps) => {
       <Pressable
         style={[styles.button, { backgroundColor: "red" }]}
         onPress={async () => {
-          Alert.alert("Simple Button pressed");
+          //Alert.alert("Simple Button pressed");
           try {
             const result = await appDb.runAsync(
               "DELETE FROM decks WHERE id = ?",
@@ -57,6 +53,22 @@ const Deck = (deck: DeckProps) => {
       >
         <Text style={styles.buttonText}>DELETE</Text>
       </Pressable>
+      <Pressable style={styles.button} onPress={() => setShowRename(true)}>
+        <Text style={styles.buttonText}>RENAME</Text>
+      </Pressable>
+      <RenameDeckPopup
+        visibility={showRename}
+        oldDeckName={deck.name}
+        onClose={() => setShowRename(false)}
+        onSubmit={async (newName) => {
+          await appDb.runAsync("UPDATE decks SET name = ? WHERE id = ?", [
+            newName,
+            deck.id,
+          ]);
+          setShowRename(false);
+          //Refresh deck list
+        }}
+      />
     </View>
   );
 };

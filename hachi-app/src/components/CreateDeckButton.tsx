@@ -8,19 +8,23 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { getUserData } from "../services/getUserData";
 import { useSQLiteContext } from "expo-sqlite";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
-import { green } from "react-native-reanimated/lib/typescript/Colors";
+import { DeckProps } from "../types/DeckProps";
 
-export const CreateDeckButton = () => {
+type CreateDeckProps = {
+  setDecks: React.Dispatch<React.SetStateAction<DeckProps[]>>;
+};
+
+export const CreateDeckButton: React.FC<CreateDeckProps> = ({ setDecks }) => {
   const appDb = useSQLiteContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [deckTitle, setDeckTitle] = useState("");
+  //const [deck, setDeck] = useState<DeckProps | null>(null);
 
   return (
-    //Needs to create deck_entries if it does not exist
+    //Needs to create decks if it does not exist
     <SafeAreaProvider>
       <SafeAreaView>
         <Modal
@@ -46,7 +50,7 @@ export const CreateDeckButton = () => {
                   style={[styles.baseButton, { backgroundColor: "green" }]}
                   onPress={async () => {
                     setModalVisible(!modalVisible);
-                    //await appDb.execAsync("DROP TABLE IF EXISTS deck_entries;"); deletes deck_entries table
+                    //await appDb.execAsync("DROP TABLE IF EXISTS decks;"); deletes decks table
                     appDb.execAsync(`
                     CREATE TABLE IF NOT EXISTS decks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,12 +58,20 @@ export const CreateDeckButton = () => {
                     deckType TEXT NOT NULL
                     );
                   `);
-                    await appDb.runAsync(
-                      //Creates A Deck, will change this later to be used with a create deck button
+                    const result = await appDb.runAsync(
+                      //Insert type later
                       "INSERT INTO decks (name, deckType) VALUES (?, ?)",
                       [deckTitle, "anki"]
                     );
-                    console.log("Added Sample Deck");
+                    const newDeck = (await appDb.getFirstAsync(
+                      "SELECT * FROM decks WHERE id = ?",
+                      [result.lastInsertRowId]
+                    )) as DeckProps;
+                    if (newDeck) {
+                      newDeck.onAdd?.(newDeck.id);
+                      setDecks((prevDecks) => [...prevDecks, newDeck]);
+                      console.log("Added Sample Deck");
+                    }
                   }}
                 >
                   <Text style={styles.infoText}>Create</Text>
@@ -75,8 +87,9 @@ export const CreateDeckButton = () => {
           </View>
         </Modal>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
             setModalVisible(!modalVisible);
+            //Update Deck list:
           }}
           style={[styles.baseButton, { backgroundColor: "#3025ccff" }]}
           // style={({ pressed }) => [

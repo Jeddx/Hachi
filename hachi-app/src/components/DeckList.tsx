@@ -3,15 +3,19 @@
 import React from "react";
 import Deck from "./Deck";
 import { DeckProps } from "../types/DeckProps";
-import { getUserData } from "../services/getUserData";
 import { View } from "../Themed";
 import { StyleSheet, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 
+type DeckListProps = {
+  decks: DeckProps[];
+  setDecks: React.Dispatch<React.SetStateAction<DeckProps[]>>;
+};
+
 //Will find all decks and list their info
-const DeckList = () => {
-  const [decks, setDecks] = useState<DeckProps[]>([]);
+const DeckList: React.FC<DeckListProps> = ({ decks, setDecks }) => {
+  //const [decks, setDecks] = useState<DeckProps[]>([]);
   const appDb = useSQLiteContext();
 
   useEffect(() => {
@@ -26,17 +30,17 @@ const DeckList = () => {
     load();
     console.log("Successfully obtained user data");
   }, []);
-  // const userDb = await getUserData();
 
-  // const deckList = await userDb.getAllAsync<{
-  //   id: number;
-  //   name: string;
-  //   deckType: string;
-  // }>("SELECT * FROM deck_entries");
   const handleDelete = (id: number) => {
     //Run when onDelete is called
     setDecks((prev) => prev.filter((deck) => deck.id !== id));
   };
+
+  // const handleAdd = (newDeck: DeckProps) => {
+  //   //id: number, name: string
+  //   setDecks((prev) => [...prev, newDeck]);
+  //   console.log("added deck and refactored");
+  // };
 
   return (
     <View style={styles.content}>
@@ -47,13 +51,6 @@ const DeckList = () => {
         <Text style={styles.headingText}></Text>
         {/* <View style={styles.separator} /> */}
       </View>
-      {/* <FlatList
-        //numColumns={1}
-        //scrollEnabled={false}
-        data={deckList}
-        //contentContainerStyle={{ alignItems: "stretch" }}
-        renderItem={({ index }) => <Deck {...deckList[index]} />}
-      /> */}
       <FlatList
         style={styles.list}
         //numColumns={Platform.OS === "ios" ? 5 : 12}
@@ -63,7 +60,9 @@ const DeckList = () => {
           alignItems: "stretch",
           justifyContent: "space-between",
         }}
-        renderItem={({ item }) => <Deck {...item} onDelete={handleDelete} />}
+        renderItem={({ item }) => (
+          <Deck {...item} onDelete={handleDelete} /> //onAdd={handleAdd} Need parameter?
+        )}
         keyExtractor={(item) => item.id.toString()}
       />
       {/* <Deck {...decks[0]} /> */}

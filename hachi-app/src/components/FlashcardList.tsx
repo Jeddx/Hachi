@@ -17,6 +17,7 @@ import { CardProps } from "../types/CardProps";
 import { getUserData } from "../services/getUserData";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
 //type FlashcardListProps = {  };
 //Should obtain study list id from url then reference that
@@ -24,15 +25,18 @@ import { useEffect, useState } from "react";
 const FlashcardList = async () => {
   const params = useLocalSearchParams<{ id: string }>();
   const deckId = Number(params.id);
+  const appDb = useSQLiteContext();
 
   const [currentItem, setCurrentItem] = useState(0);
 
   const [cards, setCards] = useState<CardProps[]>([]);
+  console.log("If u didnt see the success thing after, it failed");
 
   useEffect(() => {
     const load = async () => {
-      const userDb = await getUserData();
-      const cardList = await userDb.getAllAsync<{
+      //const userDb = await getUserData();
+
+      const cardList = await appDb.getAllAsync<{
         deck_id: number;
         card_id: number;
         proficiency: number;
@@ -42,6 +46,7 @@ const FlashcardList = async () => {
         deckId,
       ]);
       setCards(cardList);
+      console.log("Successfully created card list" + cardList);
     };
     load();
   }, []);

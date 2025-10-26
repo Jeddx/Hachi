@@ -13,7 +13,7 @@ type AddCardProps = { kanjiChar: string; deckID: number }; //kanjiID: number;
 export default function useAddCard() {
   const appDb = SQLite.useSQLiteContext();
   const addCard = async ({ kanjiChar, deckID }: AddCardProps) => {
-    const userDb = await getUserData();
+    //const userDb = await getUserData();
     //setCards([...cards, { kanjiID, deckID }]);
     //const kanjiDb = await getKanjiData();
     //const kanji = kanjiDb[kanjiID];
@@ -35,33 +35,32 @@ export default function useAddCard() {
     //let kanjiPropType: KanjiProps = kanji as KanjiProps;
 
     console.log("Kanji Found: ", kanji);
-
-    console.log("userDb value:", userDb);
-    console.log("userDb type:", typeof userDb);
-    console.log(
-      "userDb keys:",
-      userDb ? Object.keys(userDb) : "not initialized"
-    );
-    console.log(
-      "Has runAsync:",
-      userDb && typeof userDb.runAsync === "function"
-    );
-    if (!userDb || typeof userDb.runAsync !== "function") {
-      console.error("❌ userDb not initialized properly:", userDb);
-      return;
-    }
+    // console.log("userDb value:", userDb);
+    // console.log("userDb type:", typeof userDb);
+    // console.log(
+    //   "userDb keys:",
+    //   userDb ? Object.keys(userDb) : "not initialized"
+    // );
+    // console.log(
+    //   "Has runAsync:",
+    //   userDb && typeof userDb.runAsync === "function"
+    // );
+    // if (!userDb || typeof userDb.runAsync !== "function") {
+    //   console.error("❌ userDb not initialized properly:", userDb);
+    //   return;
+    // }
 
     const card: CardProps = {
-      deck_id: 1,
+      deck_id: deckID,
       card_id: 1,
       proficiency: 1,
-      front: kanji.kanji,
-      back: kanji.meanings,
+      front: kanji.meanings + kanji.on_readings + kanji.kun_readings,
+      back: kanji.kanji,
     };
 
     //Limit 1 stops after 1 match, Select 1 doesn't fetch unnecessary columns
     //Switch to look for card id later
-    const kanjiOfCardId = await userDb.getAllAsync(
+    const kanjiOfCardId = await appDb.getAllAsync(
       "SELECT 1 FROM card_entries WHERE front = ? LIMIT 1",
       [card.front]
     );
@@ -69,7 +68,7 @@ export default function useAddCard() {
     //If Kanji of card id already exists in deck then remove instead of adding
     if (kanjiOfCardId.length <= 0) {
       try {
-        const result = await userDb.runAsync(
+        const result = await appDb.runAsync(
           "INSERT INTO card_entries (deck_id, card_id, proficiency, front, back) VALUES (?, ?, ?, ?, ?)",
           [card.deck_id, card.card_id, card.proficiency, card.front, card.back]
         );
@@ -83,7 +82,7 @@ export default function useAddCard() {
       }
     } else {
       try {
-        const result = await userDb.runAsync(
+        const result = await appDb.runAsync(
           "DELETE FROM card_entries WHERE deck_id = ? AND card_id = ?",
           [card.deck_id, card.card_id]
         );

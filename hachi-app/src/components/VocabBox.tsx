@@ -13,10 +13,11 @@ import {
   Platform,
 } from "react-native";
 import { Link } from "expo-router";
-//import AddCard from "../AddCard";
 import useAddCard from "../hooks/useAddCards";
 import { useSQLiteContext } from "expo-sqlite";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { DeckProps } from "../types/DeckProps";
+import { useEffect } from "react";
 
 type KanjiBoxProps = { kanji: Kanji };
 
@@ -36,7 +37,21 @@ function getFirstWord(str: string): string {
 const VocabBox = ({ kanji }: KanjiBoxProps) => {
   const { addCard } = useAddCard();
   const [isHovered, setIsHovered] = useState(false);
+  const [firstDeckId, setFirstDeckId] = useState(0);
   const appDb = useSQLiteContext();
+  //Find way to add kanji to specific deck
+  //SELECT * FROM decks LIMIT 1;
+  //const firstDeck = appDb.getAllAsync("SELECT * FROM decks LIMIT 1") as DeckProps;
+  useEffect(() => {
+    (async () => {
+      const deck = await appDb.getFirstAsync<DeckProps>(
+        "SELECT * FROM decks ORDER BY id ASC"
+      );
+      if (deck) {
+        setFirstDeckId(deck.id);
+      }
+    })();
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -69,7 +84,9 @@ const VocabBox = ({ kanji }: KanjiBoxProps) => {
           </Link>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => addCard({ kanjiChar: kanji.kanji, deckID: 2 })}
+            onPress={() =>
+              addCard({ kanjiChar: kanji.kanji, deckID: firstDeckId })
+            }
           >
             {/* <Image //Have a parent component that figures out if Kanji exists in a deck or not
           style={styles.image}

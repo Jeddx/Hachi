@@ -5,11 +5,23 @@ import KanjiData from "@/src/services/KanjiData";
 import VocabBox from "@/src/components/VocabBox";
 import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import * as SQLite from "expo-sqlite";
 //Changing this from the ios one makes it go bonkers so cant remove cancel button
 
 export default function TabOneScreen() {
   // State to manage the filtered data and search input
   const [kanjiData, setKanjiData] = React.useState(KanjiData());
+  const appDb = SQLite.useSQLiteContext();
+
+  appDb.execAsync(`
+  CREATE TABLE IF NOT EXISTS card_entries (
+    deck_id INTEGER,
+    card_id INTEGER,
+    proficiency INTEGER,
+    front TEXT,
+    back TEXT
+  );
+`);
 
   // State to manage the search input value
   const [searchValue, setSearchValue] = React.useState("");
@@ -51,6 +63,7 @@ export default function TabOneScreen() {
           autoCorrect={false}
           showCancel={false}
         />
+        {/* Add a component here later that will let the user choose which deck they are adding to */}
         <FlatList
           //style={styles.list}
           numColumns={1}

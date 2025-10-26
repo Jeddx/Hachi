@@ -1,13 +1,15 @@
 import { StyleSheet, Pressable } from "react-native";
 import { CreateDeckButton } from "@/src/components/CreateDeckButton";
 import { Text, View } from "@/src/Themed";
-import Flashcard from "@/src/components/Flashcard";
 import KanjiData from "@/src/services/KanjiData";
 import React from "react";
 import DeckList from "@/src/components/DeckList";
+import { useState } from "react";
+import { DeckProps } from "@/src/types/DeckProps";
 
 export default function TabTwoScreen() {
   const arrayholder = KanjiData();
+  const [decks, setDecks] = useState<DeckProps[]>([]);
   //console.log("All Kanji in array:", arrayholder);
 
   if (arrayholder.length === 0) {
@@ -25,7 +27,7 @@ export default function TabTwoScreen() {
         onPress={() => {
           await userDb.runAsync(
             //Creates A Deck, will change this later to be used with a create deck button
-            "INSERT INTO deck_entries (id, name, deckType) VALUES (?, ?, ?)",
+            "INSERT INTO decks (id, name, deckType) VALUES (?, ?, ?)",
             [1, "Sample Deck 1", "anki"]
           );
         }}
@@ -38,15 +40,8 @@ export default function TabTwoScreen() {
       >
         <Text>Create Deck</Text>
       </Pressable> */}
-      <CreateDeckButton />
-      <DeckList />
-      {/* <Flashcard
-        proficiency={1}
-        front={arrayholder[0].kanji}
-        back={arrayholder[0].meanings}
-        card_id={arrayholder[0].id}
-        deck_id={1}
-      /> */}
+      <CreateDeckButton setDecks={setDecks} />
+      <DeckList decks={decks} setDecks={setDecks} />
     </View>
   );
 }
